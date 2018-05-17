@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Bubble Bobble Clone</title>
+    <link href="css/style.css" type="text/css" rel="stylesheet">
+
+    <!--  See the Phaser docs: http://phaser.io  -->
+    <script src="scripts/lib/phaser.min.js"></script>
+
+    <!--  Include game files in the order that will be referenced  -->
+    <script src="scripts/GlobalVariables.js"></script>
+    <script src="scripts/Preload.js"></script>
+    <script src="scripts/MainMenu.js"></script>
+    <script src="scripts/GamePlay.js"></script>
+</head>
+  
+<body>
+    <div id="phaser-app"></div>
+    <script>
+        //On page load, create game config
+        var config = {
+            type: Phaser.AUTO,
+            width: 1280,
+            height: 960,
+            parent	: 'phaser-app',
+            pixelArt: true,
+            physics: {
+                default: 'arcade',
+                arcade: {
+                    gravity: {y: 500},
+                    debug: false
+                }
+            },
+            audio: {
+                disableWebAudio: true
+            },
+            scene: myGame.scenes
+        };
+
+        //Instantiate the game with the config
+        var game = new Phaser.Game(config);
+    </script>
+</body>
+</html>

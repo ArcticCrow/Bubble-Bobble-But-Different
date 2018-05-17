@@ -1,0 +1,17 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background-color: black;
+    width: 100%;
+}
+
+#phaser-app {
+    background-color:black;
+    position:absolute;
+    left:50%;
+    top:50%;
+
+    margin-left:calc(-1280px/2);
+    margin-top:calc(-920px/2);
+    box-shadow: #116688 0 0 100px;
+}

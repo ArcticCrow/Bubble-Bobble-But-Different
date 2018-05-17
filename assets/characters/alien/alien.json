@@ -1,0 +1,52 @@
+{"frames": [
+
+{
+	"filename": "death",
+	"frame": {"x":1,"y":1,"w":19,"h":21},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":19,"h":21},
+	"sourceSize": {"w":19,"h":21}
+},
+{
+	"filename": "walk0",
+	"frame": {"x":43,"y":1,"w":16,"h":20},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":20},
+	"sourceSize": {"w":16,"h":20}
+},
+{
+	"filename": "walk1",
+	"frame": {"x":22,"y":1,"w":19,"h":20},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":19,"h":20},
+	"sourceSize": {"w":19,"h":20}
+},
+{
+	"filename": "walk2",
+	"frame": {"x":61,"y":1,"w":16,"h":20},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":20},
+	"sourceSize": {"w":16,"h":20}
+},
+{
+	"filename": "walk3",
+	"frame": {"x":79,"y":1,"w":14,"h":20},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":14,"h":20},
+	"sourceSize": {"w":14,"h":20}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "alien.png",
+	"format": "RGBA8888",
+	"size": {"w":94,"h":23},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:2add78566fe616b5c07338b054667773:02f28967a5c0082b8f5af31c6e43f4c6:f5c2820dc1d6657fd77f91f373566390$"
+}
+}

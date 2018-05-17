@@ -1,4 +1,4 @@
-var gamePlayState = new Phaser.Class({
+let gamePlayState = new Phaser.Class({
     // Define scene
     Extends: Phaser.Scene,
     initialize:
@@ -65,9 +65,13 @@ var gamePlayState = new Phaser.Class({
         p["1"].spriteKey = pConfig["1"].spriteKey;
 
         // Create p1
+
         p["1"].sprite = this.physics.add.sprite(pConfig["1"].start.x, pConfig["1"].start.y, "characters",
             p["1"].spriteKey + "/walk0");
-        p["1"].sprite.setScale(1.5, 1.5);
+        p["1"].sprite.setScale(1);
+        let bubble = this.physics.add.sprite(pConfig["1"].start.x, pConfig["1"].start.y, "bullet");
+
+        p["1"]["bullets"] = this.physics.add.group({classType: Bullet, runChildUpdate: true});
     },
 
     createAnimations: function() {
@@ -95,7 +99,7 @@ var gamePlayState = new Phaser.Class({
 
         // Reset p["1"].controls to avoid conflicts
         p["1"].controls = {};
-        var keys = pConfig["1"].keys;
+        let keys = pConfig["1"].keys;
 
         // Setup p["1"].controls
         p["1"].controls.up = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[keys.up]);
@@ -159,8 +163,15 @@ var gamePlayState = new Phaser.Class({
     },
 
     shoot: function() {
-        if (p["1"].controls.shoot.isDown) {
-            this.spawnBullet();
+        if (p["1"].controls.shoot) {
+            if (p["1"].active === false) return;
+
+            let bullet = p["1"].bullets.get().setActive(true).setVisible(true);
+            this.children.bringToTop(p["1"].bullets);
+
+            if(bullet) {
+                bullet.fire(p["1"].sprite, 1000);
+            }
         }
     },
 
@@ -169,44 +180,18 @@ var gamePlayState = new Phaser.Class({
         {
             p["1"].sprite.body.setVelocityY(-pConfig["1"].minJumpPower); // jump up
             p["1"].jumpTime = pConfig["1"].maxJumpTime;
-            //console.log(p["1"].jumpTime, p["1"].sprite.body.velocity);
         }
         else if ((p["1"].controls.jump.isDown || p["1"].controls.up.isDown) && p["1"].jumpTime > 0) {
             p["1"].sprite.body.setVelocityY((p["1"].sprite.body.velocity.y
                 - (((pConfig["1"].maxJumpPower - pConfig["1"].minJumpPower) / pConfig["1"].maxJumpTime)
                 * p["1"].jumpTime / pConfig["1"].maxJumpTime)));
             p["1"].jumpTime --;
-            //console.log(p["1"].jumpTime, p["1"].sprite.body.velocity);
         }
         else {
             p["1"].jumpTime = 0;
         }
 
     }
-});
-
-var Bullet = new Phaser.Class( {
-
-    Extends: Phaser.GameObjects.Image,
-
-    initialize:
-
-    // Bullet Constructor
-    function Bullet (scene) {
-        Phaser.GameObjects.Image.call(this, scene, 0, 0, 'bullet');
-        this.speed = 1;
-        this.born = 0;
-        this.direction = 0;
-        this.xSpeed = 0;
-        this.ySpeed = 0;
-        this.setSize(12, 12, true);
-    },
-
-    fireBullet: function(shooter) {
-        this.setPosition(shooter.x, shooter.y);
-    },
-
-
 });
 
 // Add scene to list of scenes

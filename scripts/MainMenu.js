@@ -1,4 +1,4 @@
-var mainMenuState = new Phaser.Class({
+let mainMenuState = new Phaser.Class({
     // Define scene
     Extends: Phaser.Scene,
     initialize:
@@ -15,13 +15,13 @@ var mainMenuState = new Phaser.Class({
     },
 
     createCharacterSelection: function() {
-        var stepWidth = Math.floor((1280 - 160) / characters.length);
-        var scale = 2;
-        var posX = (16 * scale + stepWidth)/2 + 80;
-        var posY = 960/2;
-        for(var i = 0; i < characters.length; i++, posX += stepWidth) {
-            var key = characters[i].key;
-            var char = this.add.sprite(posX, posY, "characters", key + "/walk0");
+        let stepWidth = Math.floor((1280 - 160) / characters.length);
+        let scale = 2;
+        let posX = (16 * scale + stepWidth)/2 + 80;
+        let posY = 960/2;
+        for(let i = 0; i < characters.length; i++, posX += stepWidth) {
+            let key = characters[i].key;
+            let char = this.add.sprite(posX, posY, "characters", key + "/walk0");
             char.setScale(scale);
             char.setInteractive();
             char.spriteKey = key;

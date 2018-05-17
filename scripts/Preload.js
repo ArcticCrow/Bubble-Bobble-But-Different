@@ -1,4 +1,4 @@
-var preloadState = new Phaser.Class({
+let preloadState = new Phaser.Class({
     Extends: Phaser.Scene,
     initialize:
     function Preload(){
@@ -10,8 +10,9 @@ var preloadState = new Phaser.Class({
     loadAssets: function() {
         this.load.atlas("characters", "characters.png", "characters.json");
         this.load.tilemapTiledJSON("map", "map.json");
-        this.load.spritesheet("tiles", "tiles0.png", {frameWidth: 32, frameHeight: 32});
-        this.load.spritesheet("bg", "tiles0bg.png", {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet("tiles", "tiles.png", {frameWidth: 32, frameHeight: 32});
+        this.load.spritesheet("bg", "tiles-bg.png", {frameWidth: 32, frameHeight: 32});
+        this.load.image('bullet', 'bubble.png');
     },
     loadAudio: function() {
         this.load.audio("bgm1", [

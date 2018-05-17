@@ -1,5 +1,5 @@
 // Declare myGame, the object that contains our game's states
-var myGame = {
+let myGame = {
     //Define our game states
     scenes: [],
 
@@ -7,7 +7,7 @@ var myGame = {
     frameRate: 10
 };
 
-var audioManager = {
+let audioManager = {
     bgm: undefined,
     marker: 0,
     sfx: {},
@@ -16,15 +16,15 @@ var audioManager = {
     muteBGM: false
 };
 
-var characters = [
+let characters = [
     {key: "alien"},
     {key: "bug"}
 ];
-var p = {
+let p = {
     1: {},
     2: {}
 };
-var pConfig = {
+let pConfig = {
     1: {
         spriteKey: "alien",
         moveSpeed: 200,
@@ -64,4 +64,4 @@ var pConfig = {
         }
     }
 };
-var map;
+let map;

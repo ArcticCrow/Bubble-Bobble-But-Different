@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="32" tileheight="32" infinite="0" nextobjectid="1">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="32" tileheight="32" infinite="0" nextobjectid="1">
  <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32" tilecount="350" columns="25">
-  <image source="tiles0.png" width="800" height="448"/>
+  <image source="tiles.png" width="800" height="448"/>
   <tile id="0">
    <objectgroup draworder="index">
     <object id="2" x="0.136368" y="16.0909" width="32.0909" height="15.8182"/>
@@ -110,7 +110,7 @@
   </wangsets>
  </tileset>
  <tileset firstgid="351" name="bg" tilewidth="32" tileheight="32" tilecount="350" columns="25">
-  <image source="tiles0bg.png" width="800" height="448"/>
+  <image source="tiles-bg.png" width="800" height="448"/>
   <tile id="266">
    <animation>
     <frame tileid="266" duration="1333"/>

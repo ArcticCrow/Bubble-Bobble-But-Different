@@ -109,6 +109,8 @@ let gamePlayState = new Phaser.Class({
         p["1"].controls.jump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[keys.jump]);
         p["1"].controls.shoot = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[keys.shoot]);
 
+
+
         this.input.keyboard.once('keydown_ESC', function (event) {
             p["1"].sprite.destroy();
             this.anims.remove("p1_walk");
@@ -123,6 +125,7 @@ let gamePlayState = new Phaser.Class({
         //p["1"].sprite.setCollideWorldBounds(true);
         this.physics.add.collider(this.groundLayer, p["1"].sprite);
         this.physics.add.collider(this.platformLayer, p["1"].sprite);
+        this.physics.add.collider(p["1"].bullets, this.groundLayer, Bullet.pop);
 
         // Set world boundaries
         this.physics.world.bounds.width = this.groundLayer.width;
@@ -133,6 +136,7 @@ let gamePlayState = new Phaser.Class({
         // Update objects & variables
         this.checkInput();
         this.physics.world.wrap(p["1"].sprite);
+        this.physics.world.wrap(p["1"].bullets);
 
     },
 
@@ -163,7 +167,7 @@ let gamePlayState = new Phaser.Class({
     },
 
     shoot: function() {
-        if (p["1"].controls.shoot) {
+        if (p["1"].controls.shoot.isDown) {
             if (p["1"].active === false) return;
 
             let bullet = p["1"].bullets.get().setActive(true).setVisible(true);

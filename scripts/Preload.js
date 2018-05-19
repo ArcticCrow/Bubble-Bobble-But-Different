@@ -16,8 +16,9 @@ let preloadState = new Phaser.Class({
     },
     loadAudio: function() {
         this.load.audio("bgm1", [
-            "audio/music/bgm1.mp3"
+            "audio/music/bgm3.mp3"
         ]);
+        /*
         this.load.audio("bgm2", [
             "audio/music/bgm2.mp3"
         ]);
@@ -35,7 +36,7 @@ let preloadState = new Phaser.Class({
         ]);
         this.load.audio("win1", [
             "audio/music/win1.mp3"
-        ]);
+        ]);*/
     },
     preload: function() {
         this.load.baseURL = "./assets/";

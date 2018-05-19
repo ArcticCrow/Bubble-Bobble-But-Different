@@ -9,7 +9,8 @@
     <script src="scripts/lib/phaser.min.js"></script>
 
     <!--  Include game files in the order that will be referenced  -->
-    <script src="scripts/Classes.js"></script>
+    <script src="scripts/Classes/Bullet.js"></script>
+    <script src="scripts/Classes/Player.js"></script>
     <script src="scripts/GlobalVariables.js"></script>
     <script src="scripts/Preload.js"></script>
     <script src="scripts/MainMenu.js"></script>
@@ -22,6 +23,16 @@
         //On page load, create game config
         let config = {
             type: Phaser.AUTO,
+            title: 'Bobble the Bubble',
+            banner: {
+                text: '#ffffff',
+                background: [
+                    '#fff200',
+                    '#38f0e8',
+                    '#00bff3',
+                    '#ec008c'
+                ],
+            },
             width: 1280,
             height: 960,
             parent	: 'phaser-app',
@@ -30,7 +41,7 @@
                 default: 'arcade',
                 arcade: {
                     gravity: {y: 500},
-                    debug: false
+                    debug: true
                 }
             },
             audio: {

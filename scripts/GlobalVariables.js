@@ -43,7 +43,7 @@ let pConfig = {
             x: 100,
             y: 700
         },
-        fireRate: 0.5
+        fireRate: 1
     },
     2: {
         spriteKey: "bug",

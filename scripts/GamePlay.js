@@ -6,27 +6,10 @@ let gamePlayState = new Phaser.Class({
         Phaser.Scene.call(this, {key: 'GamePlay'});
     },
 
-    create: function() {
-        this.sys.install('AnimatedTiles');
-
-        // Add music
-        this.setupMusic();
-
-        this.createMap();
-        this.createPlayers();
-        this.createAnimations();
-        this.createControls();
-        this.createPhysics();
-
-        // Move foreground elements in front of the player
-        this.children.bringToTop(this.foregroundLayer);
-        this.children.bringToTop(this.waterLayer);
-    },
-
     setupMusic: function() {
         audioManager.bgm = this.sound.add("bgm1");
         audioManager.bgm.play({
-            //config music
+            // TODO config music
         });
     },
 
@@ -38,27 +21,20 @@ let gamePlayState = new Phaser.Class({
         this.backgroundTiles = map.addTilesetImage("bg");
         this.groundTiles = map.addTilesetImage("tiles");
 
-        // Create background tiles
-        this.backgroundLayer = map.createDynamicLayer("Background", this.backgroundTiles, 0, 0);
-
-        // Create background water tiles
-        this.backWaterLayer = map.createDynamicLayer("BackgroundWater", this.backgroundTiles, 0, 0);
-
-        // Create ground tiles
+        // Create tiles
+        //this.backgroundLayer = map.createDynamicLayer("Background", this.backgroundTiles, 0, 0);
+        //this.backWaterLayer = map.createDynamicLayer("BackgroundWater", this.backgroundTiles, 0, 0);
         this.groundLayer = map.createDynamicLayer("Ground", this.groundTiles, 0, 0);
-        this.groundLayer.setCollisionByExclusion([-1]);
+        this.groundLayer.setCollisionFromCollisionGroup(true, true);
+        //this.platformLayer = map.createDynamicLayer("Platforms", this.groundTiles, 0, 0);
+        //this.platformLayer.setCollisionFromCollisionGroup();
+        //this.foregroundLayer = map.createDynamicLayer("Foreground", this.groundTiles, 0, 0);
+        //this.waterLayer = map.createDynamicLayer("Water", this.groundTiles, 0, 0);
 
-        // Create platform tiles
-        this.platformLayer = map.createDynamicLayer("Platforms", this.groundTiles, 0, 0);
-
-        // Create foreground elements
-        this.foregroundLayer = map.createDynamicLayer("Foreground", this.groundTiles, 0, 0);
-
-        // Create water tiles
-        this.waterLayer = map.createDynamicLayer("Water", this.groundTiles, 0, 0);
+        //console.log(this.platformLayer);
 
         // Init tile animation with plugin for map
-        this.sys.animatedTiles.init(map);
+        //this.sys.animatedTiles.init(map);
     },
 
     createPlayers: function() {
@@ -69,9 +45,14 @@ let gamePlayState = new Phaser.Class({
         p["1"].sprite = this.physics.add.sprite(pConfig["1"].start.x, pConfig["1"].start.y, "characters",
             p["1"].spriteKey + "/walk0");
         p["1"].sprite.setScale(1);
-        let bubble = this.physics.add.sprite(pConfig["1"].start.x, pConfig["1"].start.y, "bullet");
+        p["1"].sprite.body.isCircle = true;
 
-        p["1"]["bullets"] = this.physics.add.group({classType: Bullet, runChildUpdate: true});
+        p["1"]["bullets"] = this.physics.add.group({
+            classType: Bullet,
+            maxSize: 20,
+            runChildUpdate: true
+        });
+        p["1"].cooldown = 0;
     },
 
     createAnimations: function() {
@@ -124,23 +105,37 @@ let gamePlayState = new Phaser.Class({
     createPhysics: function() {
         //p["1"].sprite.setCollideWorldBounds(true);
         this.physics.add.collider(this.groundLayer, p["1"].sprite);
-        this.physics.add.collider(this.platformLayer, p["1"].sprite);
-        this.physics.add.collider(p["1"].bullets, this.groundLayer, Bullet.pop);
+        //this.physics.add.collider(this.platformLayer, p["1"].sprite);
+        this.physics.add.collider(p["1"].bullets, this.groundLayer, function(ev) {
+            ev.pop();
+        });
+        this.physics.add.overlap(p["1"].sprite, p["1"].bullets);
 
         // Set world boundaries
         this.physics.world.bounds.width = this.groundLayer.width;
         this.physics.world.bounds.height = this.groundLayer.height;
     },
 
-    update: function(time, delta) {
-        // Update objects & variables
-        this.checkInput();
-        this.physics.world.wrap(p["1"].sprite);
-        this.physics.world.wrap(p["1"].bullets);
+    create: function() {
+        this.sys.install('AnimatedTiles');
 
+        // Add music
+        this.setupMusic();
+
+        this.createMap();
+        this.createPlayers();
+        this.createAnimations();
+        this.createControls();
+        this.createPhysics();
+
+        // Move foreground elements in front of the player
+        //this.children.bringToTop(this.foregroundLayer);
+        //this.children.bringToTop(this.waterLayer);
+
+        this.drawDebug();
     },
 
-    checkInput: function() {
+    move: function(time, delta) {
         // Player 1 p["1"].controls
         // Handle left and right movement of character
         // TODO sounds
@@ -161,25 +156,24 @@ let gamePlayState = new Phaser.Class({
             p["1"].sprite.body.setVelocityX(0); // stop moving
             p["1"].sprite.anims.play("p1_idle", true);
         }
-
-        this.jump();
-        this.shoot();
     },
 
-    shoot: function() {
-        if (p["1"].controls.shoot.isDown) {
+    shoot: function(time, delta) {
+        if (Phaser.Input.Keyboard.JustDown(p["1"].controls.shoot) && p["1"].cooldown <= 0) {
             if (p["1"].active === false) return;
 
             let bullet = p["1"].bullets.get().setActive(true).setVisible(true);
             this.children.bringToTop(p["1"].bullets);
 
             if(bullet) {
-                bullet.fire(p["1"].sprite, 1000);
+                bullet.fire(p["1"].sprite, 3000);
+                p["1"].cooldown = pConfig["1"].fireRate * myGame.frameRate;
             }
         }
+        if (p["1"].cooldown > 0) p["1"].cooldown --;
     },
 
-    jump: function() {
+    jump: function(time, delta) {
         if ((p["1"].controls.jump.isDown || p["1"].controls.up.isDown) && p["1"].sprite.body.onFloor())
         {
             p["1"].sprite.body.setVelocityY(-pConfig["1"].minJumpPower); // jump up
@@ -195,6 +189,23 @@ let gamePlayState = new Phaser.Class({
             p["1"].jumpTime = 0;
         }
 
+    },
+
+    update: function(time, delta) {
+        // Update objects & variables
+        this.move(time, delta);
+        this.jump(time, delta);
+        this.shoot(time, delta);
+        this.physics.world.wrap(p["1"].sprite);
+    },
+
+    drawDebug: function ()
+    {
+        this.debugGraphics = this.add.graphics();
+        this.debugGraphics.clear();
+
+        // Pass in null for any of the style options to disable drawing that component
+        map.renderDebug(this.debugGraphics);
     }
 });
 

@@ -21,6 +21,22 @@ let testingState = new Phaser.Class({
         this.platformLayer = map.createDynamicLayer("Platforms", this.groundTiles, 0, 0);
         this.platformLayer.setCollisionByExclusion([-1]);
 
+        // Create enemies
+        this.enemies = this.physics.add.group();
+        this.enemies.runChildUpdate = true;
+        this.ghosts = this.add.group(map.createFromObjects("EnemySpawns", "Ghost", {
+            key: "characters", frame: "ghost/walk0"}, this));
+        this.aliens = this.add.group(map.createFromObjects("EnemySpawns", "Alien", {
+            key: "characters", frame: "invert-alien/walk0"}, this));
+        this.slimes = this.add.group(map.createFromObjects("EnemySpawns", "Slime", {
+            key: "characters", frame: "slime/walk0"}, this));
+
+        this.enemies.addMultiple(this.ghosts);
+        this.enemies.addMultiple(this.aliens);
+        this.enemies.addMultiple(this.slimes);
+
+        this.physics.add.collider(this.enemies, this.groundLayer);
+
         // Create players
         this.players = this.physics.add.group();
         this.players.runChildUpdate = true;
@@ -41,8 +57,8 @@ let testingState = new Phaser.Class({
         this.physics.world.bounds.width = this.groundLayer.width;
         this.physics.world.bounds.height = this.groundLayer.height;
 
-        let pads = this.input.gamepad.getAll();
-        console.log("connected pads:",pads);
+        /*let pads = this.input.gamepads.getAll();
+        console.log("connected pads:",pads);*/
     },
 
     create: function() {
@@ -54,20 +70,17 @@ let testingState = new Phaser.Class({
         // Player 1 player.controls
         // Handle left and right movement of character
         // TODO sounds
-        if (player.left.isDown)
-        {
+        if (player.left.isDown) {
             player.body.setVelocityX(-player.moveSpeed); // move left
             player.anims.play(player.name + "walk", true);
             player.flipX = true;
         }
-        else if (player.right.isDown)
-        {
+        else if (player.right.isDown) {
             player.body.setVelocityX(player.moveSpeed); // move right
             player.anims.play(player.name + "walk", true);
             player.flipX = false;
         }
-        else
-        {
+        else {
             player.body.setVelocityX(0); // stop moving
             player.anims.play(player.name + "idle", true);
         }

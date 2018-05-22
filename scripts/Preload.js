@@ -1,12 +1,13 @@
 let preloadState = new Phaser.Class({
     Extends: Phaser.Scene,
-    initialize:
-    function Preload(){
+    initialize: function Preload(){
         Phaser.Scene.call(this, {key: 'Preload'});
     },
+
     loadPlugins: function () {
         this.load.plugin("AnimatedTiles", "plugins/AnimatedTiles.min.js");
     },
+
     loadAssets: function() {
         this.load.atlas("characters", "characters.png", "characters.json");
         this.load.tilemapTiledJSON("map", "map.json");
@@ -14,6 +15,7 @@ let preloadState = new Phaser.Class({
         this.load.spritesheet("bg", "tiles-bg.png", {frameWidth: 32, frameHeight: 32});
         this.load.image('bullet', 'bubble.png');
     },
+
     loadAudio: function() {
         this.load.audio("bgm1", [
             "audio/music/bgm3.mp3"
@@ -38,6 +40,7 @@ let preloadState = new Phaser.Class({
             "audio/music/win1.mp3"
         ]);*/
     },
+
     preload: function() {
         this.load.baseURL = "./assets/";
 

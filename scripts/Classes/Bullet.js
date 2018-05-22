@@ -11,10 +11,10 @@ let Bullet = new Phaser.Class( {
     fire: function(shooter, ttl) {
         let dir = (shooter.flipX === true) ? - 1 : 1;
         this.setPosition(shooter.x + (shooter.width/2 - 2) * dir, shooter.y);
-        this.body.velocity = {x: 100 * dir, y: 0};
+        this.body.velocity = {x: 150 * dir, y: 10};
 
         this.body.isCircle = true;
-        this.body.gravity.y = -525;
+        this.body.gravity.y = -600;
         this.ttl = ttl;
     },
 

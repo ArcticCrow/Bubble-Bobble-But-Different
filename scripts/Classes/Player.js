@@ -23,6 +23,8 @@ let Player = new Phaser.Class( {
     maxJumpPower: 550,
     maxJumpTime: 10,
     fireRate: 1,
+    health: 3,
+    invincibility: 1,
 
     update: function(time, delta) {
 

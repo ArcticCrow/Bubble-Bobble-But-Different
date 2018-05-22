@@ -2,9 +2,9 @@ let gamePlayState = new Phaser.Class({
     // Define scene
     Extends: Phaser.Scene,
     initialize:
-    function GamePlay(){
-        Phaser.Scene.call(this, {key: 'GamePlay'});
-    },
+        function GamePlay(){
+            Phaser.Scene.call(this, {key: 'GamePlay'});
+        },
 
     setupMusic: function() {
         audioManager.bgm = this.sound.add("bgm1");
@@ -21,13 +21,15 @@ let gamePlayState = new Phaser.Class({
         this.backgroundTiles = map.addTilesetImage("bg");
         this.groundTiles = map.addTilesetImage("tiles");
 
+        this.groundLayer = map.createDynamicLayer("Ground", this.groundTiles, 0, 0);
+        this.groundLayer.setCollisionFromCollisionGroup();
+        this.platformLayer = map.createDynamicLayer("Platforms", this.groundTiles, 0, 0);
+        this.platformLayer.setCollisionByExclusion([-1]);
+
         // Create tiles
         //this.backgroundLayer = map.createDynamicLayer("Background", this.backgroundTiles, 0, 0);
         //this.backWaterLayer = map.createDynamicLayer("BackgroundWater", this.backgroundTiles, 0, 0);
-        this.groundLayer = map.createDynamicLayer("Ground", this.groundTiles, 0, 0);
-        this.groundLayer.setCollisionFromCollisionGroup(true, true);
-        //this.platformLayer = map.createDynamicLayer("Platforms", this.groundTiles, 0, 0);
-        //this.platformLayer.setCollisionFromCollisionGroup();
+
         //this.foregroundLayer = map.createDynamicLayer("Foreground", this.groundTiles, 0, 0);
         //this.waterLayer = map.createDynamicLayer("Water", this.groundTiles, 0, 0);
 
@@ -43,7 +45,7 @@ let gamePlayState = new Phaser.Class({
         // Create p1
 
         p["1"].sprite = this.physics.add.sprite(pConfig["1"].start.x, pConfig["1"].start.y, "characters",
-            p["1"].spriteKey + "/walk0");
+            p["1"].spriteKey, "/walk0");
         p["1"].sprite.setScale(1);
         p["1"].sprite.body.isCircle = true;
 
@@ -90,8 +92,6 @@ let gamePlayState = new Phaser.Class({
         p["1"].controls.jump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[keys.jump]);
         p["1"].controls.shoot = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[keys.shoot]);
 
-
-
         this.input.keyboard.once('keydown_ESC', function (event) {
             p["1"].sprite.destroy();
             this.anims.remove("p1_walk");
@@ -105,7 +105,12 @@ let gamePlayState = new Phaser.Class({
     createPhysics: function() {
         //p["1"].sprite.setCollideWorldBounds(true);
         this.physics.add.collider(this.groundLayer, p["1"].sprite);
-        //this.physics.add.collider(this.platformLayer, p["1"].sprite);
+        this.physics.add.collider(this.platformLayer, p["1"].sprite);
+
+        this.platformLayer.forEachTile(function(tile){
+            tile.collideDown = false;
+        });
+
         this.physics.add.collider(p["1"].bullets, this.groundLayer, function(ev) {
             ev.pop();
         });
@@ -117,6 +122,7 @@ let gamePlayState = new Phaser.Class({
     },
 
     create: function() {
+        // Load plugin
         this.sys.install('AnimatedTiles');
 
         // Add music
@@ -156,6 +162,16 @@ let gamePlayState = new Phaser.Class({
             p["1"].sprite.body.setVelocityX(0); // stop moving
             p["1"].sprite.anims.play("p1_idle", true);
         }
+
+        if(p["1"].controls.down.isDown) {
+            this.platformLayer.forEachTile(function(tile){
+                tile.collideUp = false;
+            });
+        } else {
+            this.platformLayer.forEachTile(function(tile){
+                tile.collideUp = true;
+            });
+        }
     },
 
     shoot: function(time, delta) {
@@ -182,7 +198,7 @@ let gamePlayState = new Phaser.Class({
         else if ((p["1"].controls.jump.isDown || p["1"].controls.up.isDown) && p["1"].jumpTime > 0) {
             p["1"].sprite.body.setVelocityY((p["1"].sprite.body.velocity.y
                 - (((pConfig["1"].maxJumpPower - pConfig["1"].minJumpPower) / pConfig["1"].maxJumpTime)
-                * p["1"].jumpTime / pConfig["1"].maxJumpTime)));
+                    * p["1"].jumpTime / pConfig["1"].maxJumpTime)));
             p["1"].jumpTime --;
         }
         else {

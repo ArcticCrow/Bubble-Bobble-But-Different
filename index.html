@@ -15,6 +15,7 @@
     <script src="scripts/Preload.js"></script>
     <script src="scripts/MainMenu.js"></script>
     <script src="scripts/GamePlay.js"></script>
+    <script src="scripts/Testing.js"></script>
 </head>
   
 <body>
@@ -37,6 +38,9 @@
             height: 960,
             parent	: 'phaser-app',
             pixelArt: true,
+            input:{
+                gamepad: true,
+            },
             physics: {
                 default: 'arcade',
                 arcade: {

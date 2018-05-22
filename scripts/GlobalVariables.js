@@ -4,7 +4,7 @@ let myGame = {
     scenes: [],
 
     // Define common framerate to be referenced in animations
-    frameRate: 10
+    frameRate: 10,
 };
 
 let audioManager = {
@@ -20,48 +20,45 @@ let characters = [
     {key: "alien"},
     {key: "bug"}
 ];
-let p = {
-    1: {},
-    2: {}
-};
-let pConfig = {
-    1: {
+let playerCount = 2;
+let p = [{}, {}];
+let pConfig = [
+    {
         spriteKey: "alien",
-        moveSpeed: 200,
-        minJumpPower: 200,
-        maxJumpPower: 550,
-        maxJumpTime: 10,
-        keys: {
+        controls: "keyboard",
+        mapping: {
             up: "W",
             down: "S",
             left: "A",
             right: "D",
             jump: "W",
-            shoot: "SPACE"
+            shoot: "SPACE",
+            pause: "ESC",
         },
         start: {
             x: 100,
-            y: 700
+            y: 847
         },
-        fireRate: 1
     },
-    2: {
+    {
         spriteKey: "bug",
         moveSpeed: 100,
         maxJumpPower: 200,
         maxJumpTime: 10,
-        keys: {
-            up: "W",
-            down: "S",
-            left: "A",
-            right: "D",
-            jump: "W",
-            shoot: "SPACE"
+        controls: "gamepad",
+        mapping: {
+            up: 0,      // h-axis
+            down: 0,    // h-axis
+            left: 1,    // v-axis
+            right: 1,   // v-axis
+            jump: "B0", // a-button
+            shoot: "B7", // rt
+            pause: "B9", // start
         },
         start: {
-            x: 16,
-            y: 16
+            x: 120,
+            y: 847
         }
     }
-};
+];
 let map;

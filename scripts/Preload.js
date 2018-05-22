@@ -50,7 +50,7 @@ let preloadState = new Phaser.Class({
     create: function() {
         console.log("Preload");
 
-        game.scene.start('GamePlay');
+        game.scene.start('Testing');
     },
     update: function() {
         // Update objects & variables

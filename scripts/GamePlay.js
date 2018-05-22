@@ -9,6 +9,7 @@ let gamePlayState = new Phaser.Class({
     setupMusic: function() {
         audioManager.bgm = this.sound.add("bgm1");
         audioManager.bgm.play({
+            volume: 0.5
             // TODO config music
         });
     },
@@ -68,12 +69,12 @@ let gamePlayState = new Phaser.Class({
         });
         this.anims.create({
             key: "p1_idle",
-            frames: [{key: "characters", frame: p["1"].spriteKey + "/walk0"}],
+            frames: [{key: "characters", frame: config.spriteKey + "/walk0"}],
             frameRate: myGame.frameRate
         });
         this.anims.create({
             key: "p1_death",
-            frames: [{key: "characters", frame: p["1"].spriteKey + "/death"}],
+            frames: [{key: "characters", frame: config.spriteKey + "/death"}],
             frameRate: myGame.frameRate
         });
     },

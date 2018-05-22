@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="220b8e03-29e9-42e4-8b77-2dbde91bb1cf" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/Classes/Player.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/Classes/Player.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/GamePlay.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/GamePlay.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/GlobalVariables.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/GlobalVariables.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/Testing.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/Testing.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,8 +25,8 @@
           <file leaf-file-name="Testing.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/scripts/Testing.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="359">
-                  <caret line="100" column="32" selection-start-line="100" selection-start-column="32" selection-end-line="100" selection-end-column="32" />
+                <state relative-caret-position="404">
+                  <caret line="91" column="51" selection-start-line="91" selection-start-column="51" selection-end-line="91" selection-end-column="51" />
                 </state>
               </provider>
             </entry>
@@ -30,8 +34,8 @@
           <file leaf-file-name="GamePlay.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/scripts/GamePlay.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1564">
-                  <caret line="92" column="8" selection-start-line="92" selection-start-column="8" selection-end-line="92" selection-end-column="8" />
+                <state relative-caret-position="444">
+                  <caret line="72" column="39" lean-forward="true" selection-start-line="72" selection-start-column="39" selection-end-line="72" selection-end-column="39" />
                 </state>
               </provider>
             </entry>
@@ -48,8 +52,8 @@
           <file leaf-file-name="GlobalVariables.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/scripts/GlobalVariables.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="561">
-                  <caret line="33" column="19" selection-start-line="33" selection-start-column="19" selection-end-line="33" selection-end-column="19" />
+                <state relative-caret-position="612">
+                  <caret line="57" column="30" lean-forward="true" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
                 </state>
               </provider>
             </entry>
@@ -66,14 +70,14 @@
         </leaf>
       </split-first>
       <split-second>
-        <splitter split-orientation="vertical" split-proportion="0.71694213">
+        <splitter split-orientation="vertical" split-proportion="0.7582645">
           <split-first>
             <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
               <file leaf-file-name="GamePlay.js" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/scripts/GamePlay.js">
                   <provider selected="true" editor-type-id="text-editor">
                     <state relative-caret-position="44">
-                      <caret line="92" column="47" selection-start-line="92" selection-start-column="47" selection-end-line="92" selection-end-column="47" />
+                      <caret line="93" column="47" selection-start-line="93" selection-start-column="47" selection-end-line="93" selection-end-column="47" />
                     </state>
                   </provider>
                 </entry>
@@ -82,7 +86,16 @@
                 <entry file="file://$PROJECT_DIR$/scripts/Classes/Player.js">
                   <provider selected="true" editor-type-id="text-editor">
                     <state relative-caret-position="442">
-                      <caret line="26" column="21" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
+                      <caret line="56" column="21" lean-forward="true" selection-start-line="56" selection-start-column="21" selection-end-line="56" selection-end-column="21" />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="Bullet.js" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/scripts/Classes/Bullet.js">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="384">
+                      <caret line="30" column="3" lean-forward="true" selection-start-line="30" selection-start-column="3" selection-end-line="30" selection-end-column="3" />
                     </state>
                   </provider>
                 </entry>
@@ -91,19 +104,19 @@
           </split-first>
           <split-second>
             <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-              <file leaf-file-name="GlobalVariables.js" pinned="false" current-in-tab="false">
+              <file leaf-file-name="GlobalVariables.js" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/scripts/GlobalVariables.js">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="493">
-                      <caret line="29" column="15" selection-start-line="29" selection-start-column="15" selection-end-line="29" selection-end-column="15" />
+                    <state relative-caret-position="-102">
+                      <caret line="12" column="12" lean-forward="true" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="Preload.js" pinned="false" current-in-tab="true">
+              <file leaf-file-name="Preload.js" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/scripts/Preload.js">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="116">
+                    <state relative-caret-position="175">
                       <caret line="48" selection-start-line="48" selection-end-line="48" />
                     </state>
                   </provider>
@@ -122,7 +135,7 @@
                 <entry file="file://$PROJECT_DIR$/scripts/GamePlay.js">
                   <provider selected="true" editor-type-id="text-editor">
                     <state relative-caret-position="391">
-                      <caret line="23" column="38" selection-start-line="23" selection-start-column="38" selection-end-line="23" selection-end-column="38" />
+                      <caret line="24" column="38" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
                     </state>
                   </provider>
                 </entry>
@@ -147,12 +160,14 @@
       <find>this.matter</find>
       <find>p[&quot;1&quot;].controls.</find>
       <find>p[&quot;1&quot;].</find>
+      <find>player.bullets</find>
     </findStrings>
     <replaceStrings>
       <replace>let</replace>
       <replace>this.matter</replace>
       <replace>this.impact</replace>
       <replace>player.</replace>
+      <replace>player.weapon</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -164,12 +179,12 @@
         <option value="$PROJECT_DIR$/scripts/MainMenu.js" />
         <option value="$PROJECT_DIR$/scripts/Classes.js" />
         <option value="$PROJECT_DIR$/scripts/Classes/Bullet.js" />
-        <option value="$PROJECT_DIR$/scripts/GamePlay.js" />
         <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/scripts/GlobalVariables.js" />
         <option value="$PROJECT_DIR$/scripts/Preload.js" />
-        <option value="$PROJECT_DIR$/scripts/Testing.js" />
+        <option value="$PROJECT_DIR$/scripts/GlobalVariables.js" />
+        <option value="$PROJECT_DIR$/scripts/GamePlay.js" />
         <option value="$PROJECT_DIR$/scripts/Classes/Player.js" />
+        <option value="$PROJECT_DIR$/scripts/Testing.js" />
       </list>
     </option>
   </component>
@@ -182,9 +197,9 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
     <option name="x" value="-7" />
-    <option name="width" value="1579" />
+    <option name="width" value="1378" />
     <option name="height" value="1087" />
   </component>
   <component name="ProjectView">
@@ -240,6 +255,14 @@
       </list>
     </option>
   </component>
+  <component name="RunManager">
+    <configuration name="index.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Bubble-Bobble-But-Different/index.html" />
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.index.html" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -255,17 +278,18 @@
       <workItem from="1526969970491" duration="18000" />
       <workItem from="1526969999503" duration="12014000" />
       <workItem from="1526985987724" duration="75000" />
+      <workItem from="1526986138827" duration="7851000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35845000" />
+    <option name="totallyTimeSpent" value="43696000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1858" height="1096" extended-state="6" />
+    <frame x="-7" y="0" width="1378" height="1087" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.11400651" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.15418503" />
       <window_info anchor="bottom" id="TODO" order="12" />
       <window_info anchor="bottom" id="Docker" order="14" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="17" side_tool="true" />
@@ -291,6 +315,55 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/scripts/MainMenu.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/Classes/Player.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="21" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/GlobalVariables.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="15" selection-start-line="29" selection-start-column="15" selection-end-line="29" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/Testing.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1700">
+          <caret line="100" column="32" selection-start-line="100" selection-start-column="32" selection-end-line="100" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/GamePlay.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1564">
+          <caret line="92" column="47" selection-start-line="92" selection-start-column="47" selection-end-line="92" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/Preload.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="816">
+          <caret line="48" selection-start-line="48" selection-end-line="48" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/scripts/MainMenu.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -460,13 +533,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore" />
-    <entry file="file://$PROJECT_DIR$/scripts/MainMenu.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -474,39 +540,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/Classes/Bullet.js" />
-    <entry file="file://$PROJECT_DIR$/scripts/GlobalVariables.js">
+    <entry file="file://$PROJECT_DIR$/scripts/Preload.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="19" selection-start-line="33" selection-start-column="19" selection-end-line="33" selection-end-column="19" />
+        <state relative-caret-position="175">
+          <caret line="48" selection-start-line="48" selection-end-line="48" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/Preload.js">
+    <entry file="file://$PROJECT_DIR$/scripts/Classes/Bullet.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
+        <state relative-caret-position="384">
+          <caret line="30" column="3" lean-forward="true" selection-start-line="30" selection-start-column="3" selection-end-line="30" selection-end-column="3" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/scripts/GamePlay.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="92" column="47" selection-start-line="92" selection-start-column="47" selection-end-line="92" selection-end-column="47" />
+        <state relative-caret-position="444">
+          <caret line="72" column="39" lean-forward="true" selection-start-line="72" selection-start-column="39" selection-end-line="72" selection-end-column="39" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/Testing.js">
+    <entry file="file://$PROJECT_DIR$/scripts/MainMenu.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="100" column="32" selection-start-line="100" selection-start-column="32" selection-end-line="100" selection-end-column="32" />
+        <state relative-caret-position="102">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/GlobalVariables.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="57" column="30" lean-forward="true" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/scripts/Classes/Player.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
-          <caret line="26" column="21" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
+          <caret line="56" column="21" lean-forward="true" selection-start-line="56" selection-start-column="21" selection-end-line="56" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/Testing.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="404">
+          <caret line="91" column="51" selection-start-line="91" selection-start-column="51" selection-end-line="91" selection-end-column="51" />
         </state>
       </provider>
     </entry>

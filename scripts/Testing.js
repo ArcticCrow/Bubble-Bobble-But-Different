@@ -25,13 +25,13 @@ let testingState = new Phaser.Class({
         this.players = this.physics.add.group();
         this.players.runChildUpdate = true;
         for (let i = 0; i < playerCount; i++) {
-            p[i] = new Player(this, pConfig[i]);
+            p[i] = new Player(this, "p" + i, pConfig[i]);
             this.players.add(p[i], true);
             p[i].setup();
             p[i]["platformCollision"] = this.physics.add.collider(p[i], this.platformLayer, null, null, this);
             console.log(p[i]["platformCollision"]);
         }
-        this.physics.add.collider(this.players, this.groundLayer);
+        this.physics.add.collider(this.players, this.groundLayer, null, null, this);
 
         this.platformLayer.forEachTile(function(tile){
             tile.collideDown = false;
@@ -57,22 +57,22 @@ let testingState = new Phaser.Class({
         if (player.left.isDown)
         {
             player.body.setVelocityX(-player.moveSpeed); // move left
-            //player.anims.play("p1_walk", true);
+            player.anims.play(player.name + "walk", true);
             player.flipX = true;
         }
         else if (player.right.isDown)
         {
             player.body.setVelocityX(player.moveSpeed); // move right
-            //player.anims.play("p1_walk", true);
+            player.anims.play(player.name + "walk", true);
             player.flipX = false;
         }
         else
         {
             player.body.setVelocityX(0); // stop moving
-            //player.anims.play("p1_idle", true);
+            player.anims.play(player.name + "idle", true);
         }
 
-        if(player.down.isDown) {
+        if (player.down.isDown) {
             player.platformCollision.overlapOnly = true;
         } else {
             // TODO wait for player to fall down
@@ -84,11 +84,11 @@ let testingState = new Phaser.Class({
         if (Phaser.Input.Keyboard.JustDown(player.shoot) && player.cooldown <= 0) {
             if (player.active === false) return;
 
-            let bullet = player.bullets.get().setActive(true).setVisible(true);
-            this.children.bringToTop(player.bullets);
+            let bullet = player.weapon.get().setActive(true).setVisible(true);
+            this.children.bringToTop(player.weapon);
 
             if(bullet) {
-                bullet.fire(player.sprite, 3000);
+                bullet.fire(player, 3000);
                 player.cooldown = player.fireRate * myGame.frameRate;
             }
         }

@@ -45,7 +45,17 @@ let pConfig = [
         moveSpeed: 100,
         maxJumpPower: 200,
         maxJumpTime: 10,
-        controls: "gamepad",
+        controls: "keyboard",
+        mapping: {
+            up: "UP",
+            down: "DOWN",
+            left: "LEFT",
+            right: "RIGHT",
+            jump: "UP",
+            shoot: "INSERT",
+            //pause: "ESC",
+        },
+        /*controls: "gamepad",
         mapping: {
             up: 0,      // h-axis
             down: 0,    // h-axis
@@ -54,7 +64,7 @@ let pConfig = [
             jump: "B0", // a-button
             shoot: "B7", // rt
             pause: "B9", // start
-        },
+        },*/
         start: {
             x: 120,
             y: 847

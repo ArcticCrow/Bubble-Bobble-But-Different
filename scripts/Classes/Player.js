@@ -38,6 +38,10 @@ let Player = new Phaser.Class( {
             frames: [{key: "characters", frame: config.spriteKey + "/death"}],
             frameRate: myGame.frameRate
         });
+
+        this.originX = 0.5;
+        this.originY = .75;
+        console.log(this);
     },
 
     setup: function() {

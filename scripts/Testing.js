@@ -37,7 +37,6 @@ let testingState = new Phaser.Class({
             tile.collideDown = false;
         });
 
-
         // Create enemies
         this.enemies = this.physics.add.group();
         this.enemies.runChildUpdate = true;
@@ -46,9 +45,10 @@ let testingState = new Phaser.Class({
             let enemy = new Enemy(this, map.getObjectLayer("EnemySpawns").objects[id]);
             this.enemies.add(enemy, true);
             enemy.setup();
+            let col = this.physics.add.collider(enemy, [this.groundLayer, this.platformLayer]);
+            if (enemy.name === "ghost") col.overlapOnly = true;
+            enemy.layerCollison = col;
         }
-
-        this.physics.add.collider(this.enemies, [this.groundLayer, this.platformLayer]);
 
         // Set world boundaries
         this.physics.world.bounds.width = this.groundLayer.width;

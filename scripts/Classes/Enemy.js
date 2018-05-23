@@ -36,13 +36,18 @@ let Enemy = new Phaser.Class({
 
     setup: function() {
         this.body.isCircle = true;
-        this.setScale(1.2);
+        this.setScale(1);
+        this.body.setCollideWorldBounds(true);
+
+        this.targets = this.scene.players.children.entries;
+        this.playerCollision = this.scene.physics.add.collider(this.targets, this, function(){
+            console.log("player was hit!");
+        });
 
         switch (this.name) {
             case "slime":
                 this.cooldown = Phaser.Math.Between(2000, 4000);
-                this.body.setCollideWorldBounds(true);
-
+                this.body.setBounce(1);
                 this.move = function(time, delta) {
                     if (this.body.onFloor() && this.cooldown <= 0) {
                         let dir = Phaser.Math.Between(0, 1);
@@ -59,26 +64,32 @@ let Enemy = new Phaser.Class({
 
             case "ghost":
                 this.body.setGravityY(-500);
-                this.targets = this.scene.players.children.entries;
+
                 console.log(this.targets);
                 this.move = function(time, delta) {
-                    let closestDistance = 0;
+                    let closestDistance = undefined;
                     for (let i in this.targets) {
                         let target = this.targets[i];
                         let xDist = this.x - target.x;
                         let yDist = this.y - target.y;
+                        // noinspection JSSuspiciousNameCombination
                         let absDist = Math.abs(xDist) + Math.abs(yDist);
-                        if (this.targetDistance === undefined || this.targetDistance > absDist) {
-                            this.targetDistance = absDist;
-                            console.log(this.targetDistance);
+                        if (closestDistance === undefined || closestDistance > absDist) {
+                            closestDistance = absDist;
+                            this.currentTarget = target;
                         }
-                        //console.log(xDist+yDist);
-
                     }
+
+                    let velocity = new Phaser.Math.Vector2(this.currentTarget.x - this.x,
+                        this.currentTarget.y - this.y).normalize().scale(this.speed);
+                    this.body.setVelocity(velocity.x, velocity.y);
                 };
+                console.log(this.scene);
                 break;
 
             case "invert-alien":
+                this.body.setBounce(1, 0);
+                this.body.setVelocity(this.speed);
                 this.move = function(time, delta) {
 
                 };
@@ -86,7 +97,7 @@ let Enemy = new Phaser.Class({
         }
     },
 
-    speed: 200,
+    speed: 150,
     jumpPower: 300,
 
     update: function(time, delta) {

@@ -21,21 +21,6 @@ let testingState = new Phaser.Class({
         this.platformLayer = map.createDynamicLayer("Platforms", this.groundTiles, 0, 0);
         this.platformLayer.setCollisionByExclusion([-1]);
 
-        // Create enemies
-        this.enemies = this.physics.add.group();
-        this.enemies.runChildUpdate = true;
-        this.ghosts = this.add.group(map.createFromObjects("EnemySpawns", "Ghost", {
-            key: "characters", frame: "ghost/walk0"}, this));
-        this.aliens = this.add.group(map.createFromObjects("EnemySpawns", "Alien", {
-            key: "characters", frame: "invert-alien/walk0"}, this));
-        this.slimes = this.add.group(map.createFromObjects("EnemySpawns", "Slime", {
-            key: "characters", frame: "slime/walk0"}, this));
-
-        this.enemies.addMultiple(this.ghosts);
-        this.enemies.addMultiple(this.aliens);
-        this.enemies.addMultiple(this.slimes);
-
-        this.physics.add.collider(this.enemies, this.groundLayer);
 
         // Create players
         this.players = this.physics.add.group();
@@ -45,13 +30,25 @@ let testingState = new Phaser.Class({
             this.players.add(p[i], true);
             p[i].setup();
             p[i]["platformCollision"] = this.physics.add.collider(p[i], this.platformLayer, null, null, this);
-            console.log(p[i]["platformCollision"]);
         }
         this.physics.add.collider(this.players, this.groundLayer, null, null, this);
 
         this.platformLayer.forEachTile(function(tile){
             tile.collideDown = false;
         });
+
+
+        // Create enemies
+        this.enemies = this.physics.add.group();
+        this.enemies.runChildUpdate = true;
+
+        for(let id in map.getObjectLayer("EnemySpawns").objects) {
+            let enemy = new Enemy(this, map.getObjectLayer("EnemySpawns").objects[id]);
+            this.enemies.add(enemy, true);
+            enemy.setup();
+        }
+
+        this.physics.add.collider(this.enemies, [this.groundLayer, this.platformLayer]);
 
         // Set world boundaries
         this.physics.world.bounds.width = this.groundLayer.width;

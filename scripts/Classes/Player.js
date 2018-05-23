@@ -2,9 +2,8 @@ let Player = new Phaser.Class( {
     Extends: Phaser.GameObjects.Sprite,
 
     initialize: function Player(scene, name, config) {
-        Phaser.GameObjects.Sprite.call(this, scene, 0, 0, "characters",
+        Phaser.GameObjects.Sprite.call(this, scene, config.start.x, config.start.y, "characters",
             config.spriteKey + "/walk0");
-        this.setPosition(config.start.x, config.start.y);
         this.name = name;
 
         // register keys for player interaction
@@ -39,15 +38,13 @@ let Player = new Phaser.Class( {
             frames: [{key: "characters", frame: config.spriteKey + "/death"}],
             frameRate: myGame.frameRate
         });
-
-        console.log("Player", config.spriteKey + ":", this);
     },
 
     setup: function() {
         this.body.isCircle = true;
-        this.setScale(1);
+        this.setScale(1.2);
     },
-    name: null,
+    name: "noname",
     moveSpeed: 200,
     minJumpPower: 200,
     maxJumpPower: 800,

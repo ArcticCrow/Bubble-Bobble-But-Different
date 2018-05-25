@@ -1,0 +1,41 @@
+
+characters.png
+size: 128,32
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+death
+  rotate: false
+  xy: 2, 2
+  size: 19, 21
+  orig: 32, 32
+  offset: 6, 1
+  index: -1
+walk0
+  rotate: false
+  xy: 44, 3
+  size: 16, 20
+  orig: 32, 32
+  offset: 8, 0
+  index: -1
+walk1
+  rotate: false
+  xy: 23, 3
+  size: 19, 20
+  orig: 32, 32
+  offset: 6, 1
+  index: -1
+walk2
+  rotate: false
+  xy: 62, 3
+  size: 16, 20
+  orig: 32, 32
+  offset: 8, 0
+  index: -1
+walk3
+  rotate: false
+  xy: 80, 3
+  size: 14, 20
+  orig: 32, 32
+  offset: 9, 1
+  index: -1

@@ -36,11 +36,11 @@ let Enemy = new Phaser.Class({
 
     setup: function() {
         this.body.isCircle = true;
-        this.setScale(1);
+        this.setScale(2);
         this.body.setCollideWorldBounds(true);
 
         this.targets = this.scene.players.children.entries;
-        this.playerCollision = this.scene.physics.add.collider(this.targets, this, function(){
+        this.playerCollision = this.scene.physics.add.overlap(this.targets, this, function(){
             console.log("player was hit!");
         });
 
@@ -52,11 +52,12 @@ let Enemy = new Phaser.Class({
                     if (this.body.onFloor() && this.cooldown <= 0) {
                         let dir = Phaser.Math.Between(0, 1);
                         dir = (dir === 0)? -1 : 1;
-                        //console.log(dir);
                         this.body.setVelocity(this.speed * dir, -this.jumpPower);
-                        this.cooldown = Phaser.Math.Between(2000, 4000);
+                        this.cooldown = Phaser.Math.Between(1000, 2500);
+                        this.anims.play(this.name + "walk", true);
                     } else if (this.body.onFloor()) {
                         this.body.setVelocity(0);
+                        this.anims.play(this.name + "idle", true);
                     }
                     this.cooldown -= delta;
                 };
@@ -64,6 +65,7 @@ let Enemy = new Phaser.Class({
 
             case "ghost":
                 this.body.setGravityY(-500);
+                this.anims.play(this.name+"walk", true);
 
                 console.log(this.targets);
                 this.move = function(time, delta) {
@@ -76,7 +78,10 @@ let Enemy = new Phaser.Class({
                         let absDist = Math.abs(xDist) + Math.abs(yDist);
                         if (closestDistance === undefined || closestDistance > absDist) {
                             closestDistance = absDist;
+
+                            // make enemy face and chase player
                             this.currentTarget = target;
+                            this.flipX = xDist > 0;
                         }
                     }
 
@@ -88,10 +93,17 @@ let Enemy = new Phaser.Class({
                 break;
 
             case "invert-alien":
-                this.body.setBounce(1, 0);
+                console.log(this);
+                this.anims.play(this.name + "walk");
                 this.body.setVelocity(this.speed);
+                this.body.setBounce(1, 0);
                 this.move = function(time, delta) {
-
+                    if (this.body.velocity.x > 0) {
+                        this.flipX = false;
+                    }
+                    else if (this.body.velocity.x < 0) {
+                        this.flipX = true;
+                    }
                 };
                 break;
         }

@@ -42,9 +42,13 @@ let Enemy = new Phaser.Class({
         this.targets = this.scene.players.children.entries;
         this.playerCollision = this.scene.physics.add.overlap(this.targets, this, function(player , enemy){
             if (this.trappedTime <= 0) {
-                player.damage();
+                player.takeDamage();
             } else {
-
+                if (player.body.velocity.y > 0 && player.body.x > enemy.body.x) {
+                    console.log("takeDamage the enemy");
+                    player.body.velocity.y -= player.minJumpPower;
+                    this.takeDamage();
+                }
             }
         }, null, this);
 
@@ -115,21 +119,33 @@ let Enemy = new Phaser.Class({
         }
     },
 
-    trap: function(bullet) {
-        this.trappedTime = bullet.trapDuration;
-        bullet.ttl = bullet.trapDuration;
+    trap: function(bullet, trapTime) {
+        bullet.body.enable = false;
+        this.trappedTime = trapTime * 1000;
+        bullet.ttl = trapTime * 1000;
         this.body.moves = false;
         bullet.body.moves = false;
         bullet.setPosition(this.body.position.x + this.body.width/2, this.body.position.y + this.body.height/2);
-        bullet.body.checkCollision = false;
+    },
+
+    takeDamage: function() {
+        this.health--;
+        if (this.health <= 0) {
+            this.destroy();
+        }
     },
 
     speed: 150,
     jumpPower: 300,
     trappedTime: 0,
+    health: 1,
 
     update: function(time, delta) {
-        if (this.move !== undefined && this.trappedTime <= 0) {
+        if (this.trappedTime > 0) {
+            // float upwards
+
+        }
+        else if (this.move !== undefined) {
             this.body.moves = true;
             this.move(time, delta);
         }

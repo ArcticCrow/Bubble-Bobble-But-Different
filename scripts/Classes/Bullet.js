@@ -25,8 +25,6 @@ let Bullet = new Phaser.Class( {
         this.destroy();
     },
 
-    trapDuration: 5000,
-
     update: function(time, delta) {
         this.ttl -= delta;
         if (this.ttl <= 0) {

@@ -45,13 +45,16 @@ let Player = new Phaser.Class( {
         this.enemies = this.scene.enemies.children.entries;
         this.scene.physics.add.overlap(this.enemies, this.weapon, function(enemy, bullet) {
             //console.log(this.name + " hit and enemy!", enemy, bullet);
-            enemy.trap(bullet);
+            if (enemy.trappedTime <= 0) {
+                enemy.trap(bullet, this.trapTime);
+                console.log(1);
+            }
         }, null, this);
     },
 
-    damage: function() {
+    takeDamage: function() {
         if (this.invincibleTime < 0) {
-            console.log(this.name + " took damage!");
+            console.log(this.name + " took takeDamage!");
             this.invincibleTime = 1000 * this.invincibility;
             this.health --;
         }
@@ -77,6 +80,7 @@ let Player = new Phaser.Class( {
     weapon: undefined,
     fireRate: 2,
     cooldown: 0,
+    trapTime: 4,
 
 
     update: function(time, delta) {

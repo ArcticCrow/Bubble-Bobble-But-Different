@@ -2,50 +2,54 @@ let Enemy = new Phaser.Class({
     Extends: Phaser.GameObjects.Sprite,
 
     initialize: function Enemy(scene, config) {
-        Phaser.GameObjects.Sprite.call(this, scene, config.x, config.y, "characters", config.name + "/walk0");
+        Phaser.GameObjects.Sprite.call(this, scene, config.x, config.y, config.type, 1);
         this.config = config;
-        this.name = config.name;
+        this.name = config.type;
+        this.type = config.name;
 
         if (this.scene.anims.get(this.name + "walk") === undefined) {
             //console.log("Creating enemy animation for", config.name + "walk");
             this.scene.anims.create({
                 key: this.name + "walk",
-                frames: this.scene.anims.generateFrameNames('characters', {prefix: config.name + "/walk",
-                    start:0, end:3}),
+                frames: this.scene.anims.generateFrameNames(this.name, {start:1, end:4}),
                 frameRate: myGame.frameRate,
                 repeat: -1
             }, this);
         }
         if (this.scene.anims.get(this.name + "idle") === undefined) {
-            //console.log("Creating enemy animation for", config.name + "idle");
             this.scene.anims.create({
                 key: this.name + "idle",
-                frames: [{key: "characters", frame: config.name + "/walk0"}],
-                frameRate: myGame.frameRate
+                frames: [{key: this.name, frame: 1}, {key: this.name, frame: 3}, {key: this.name, frame: 1}],
+                frameRate: myGame.frameRate/2,
+                repeat: -1,
+                repeatDelay:2000
             });
         }
-        if (this.scene.anims.get(config.name + "death") === undefined) {
+        if (this.scene.anims.get(this.name + "death") === undefined) {
             //console.log("Creating enemy animation for", config.name + "death");
             this.scene.anims.create({
                 key: this.name + "death",
-                frames: [{key: "characters", frame: config.name + "/death"}],
+                frames: [{key: this.name, frame: 0}],
                 frameRate: myGame.frameRate
             });
         }
     },
 
     setup: function() {
-        this.body.isCircle = true;
-        this.setScale(2);
+        this.setScale(1.8);
         this.body.setCollideWorldBounds(true);
 
         this.targets = this.scene.players.children.entries;
-        this.playerCollision = this.scene.physics.add.overlap(this.targets, this, function(){
-            console.log("player was hit!");
-        });
+        this.playerCollision = this.scene.physics.add.overlap(this.targets, this, function(player , enemy){
+            if (this.trappedTime <= 0) {
+                player.damage();
+            } else {
 
-        switch (this.name) {
-            case "slime":
+            }
+        }, null, this);
+
+        switch (this.type) {
+            case "jumper":
                 this.cooldown = Phaser.Math.Between(2000, 4000);
                 this.body.setBounce(1);
                 this.move = function(time, delta) {
@@ -63,12 +67,16 @@ let Enemy = new Phaser.Class({
                 };
                 break;
 
-            case "ghost":
-                this.body.setGravityY(-500);
+            case "chaser":
+                this.body.allowGravity = false;
                 this.anims.play(this.name+"walk", true);
 
-                console.log(this.targets);
                 this.move = function(time, delta) {
+                    if (this.targets.length <= 0) {
+                        this.body.setVelocity(0);
+                        this.anims.play(this.name + "idle", true);
+                        return;
+                    }
                     let closestDistance = undefined;
                     for (let i in this.targets) {
                         let target = this.targets[i];
@@ -89,11 +97,9 @@ let Enemy = new Phaser.Class({
                         this.currentTarget.y - this.y).normalize().scale(this.speed);
                     this.body.setVelocity(velocity.x, velocity.y);
                 };
-                console.log(this.scene);
                 break;
 
-            case "invert-alien":
-                console.log(this);
+            case "patrol":
                 this.anims.play(this.name + "walk");
                 this.body.setVelocity(this.speed);
                 this.body.setBounce(1, 0);
@@ -109,11 +115,25 @@ let Enemy = new Phaser.Class({
         }
     },
 
+    trap: function(bullet) {
+        this.trappedTime = bullet.trapDuration;
+        bullet.ttl = bullet.trapDuration;
+        this.body.moves = false;
+        bullet.body.moves = false;
+        bullet.setPosition(this.body.position.x + this.body.width/2, this.body.position.y + this.body.height/2);
+        bullet.body.checkCollision = false;
+    },
+
     speed: 150,
     jumpPower: 300,
+    trappedTime: 0,
 
     update: function(time, delta) {
-        if (this.move !== undefined) this.move(time, delta);
+        if (this.move !== undefined && this.trappedTime <= 0) {
+            this.body.moves = true;
+            this.move(time, delta);
+        }
+        this.trappedTime -= delta;
     }
 
 

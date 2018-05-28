@@ -8,7 +8,9 @@ let testingState = new Phaser.Class({
     setupMusic: function() {
         audioManager.bgm = this.sound.add("bgm1");
         audioManager.bgm.play({
-            // TODO config music
+            loop: true,
+            volume: .1
+
         });
     },
 
@@ -20,19 +22,19 @@ let testingState = new Phaser.Class({
         this.backgroundLayer = map.createDynamicLayer("Background", this.backgroundTiles, 0, 0);
         this.backWaterLayer = map.createDynamicLayer("BackgroundWater", this.backgroundTiles, 0, 0);
 
-
         this.groundTiles = map.addTilesetImage("tiles");
         this.groundLayer = map.createDynamicLayer("Ground", this.groundTiles, 0, 0);
         this.groundLayer.setCollisionByExclusion([-1]);
         this.platformLayer = map.createDynamicLayer("Platforms", this.groundTiles, 0, 0);
         this.platformLayer.setCollisionByExclusion([-1]);
 
-        this.sys.animatedTiles.init(map);
+        //this.sys.animatedTiles.init(map);
 
+        // Create groups here for easier referencing
+        this.players = this.physics.add.group({runChildUpdate: true});
+        this.enemies = this.physics.add.group({runChildUpdate: true});
 
         // Create players
-        this.players = this.physics.add.group();
-        this.players.runChildUpdate = true;
         for (let i = 0; i < playerCount; i++) {
             p[i] = new Player(this, "p" + i, pConfig[i]);
             this.players.add(p[i], true);
@@ -46,10 +48,8 @@ let testingState = new Phaser.Class({
         });
 
         // Create enemies
-        this.enemies = this.physics.add.group();
-        this.enemies.runChildUpdate = true;
-
         for(let id in map.getObjectLayer("EnemySpawns").objects) {
+            console.log(map.getObjectLayer("EnemySpawns").objects[id]);
             let enemy = new Enemy(this, map.getObjectLayer("EnemySpawns").objects[id]);
             this.enemies.add(enemy, true);
             enemy.setup();
@@ -67,7 +67,7 @@ let testingState = new Phaser.Class({
     },
 
     create: function() {
-        this.sys.install('AnimatedTiles');
+        //this.sys.install('AnimatedTiles');
 
         this.setupMusic();
         this.setupScene();
@@ -102,17 +102,15 @@ let testingState = new Phaser.Class({
 
     shoot: function(player, time, delta) {
         if (Phaser.Input.Keyboard.JustDown(player.shoot) && player.cooldown <= 0) {
-            if (player.active === false) return;
-
             let bullet = player.weapon.get().setActive(true).setVisible(true);
             this.children.bringToTop(player.weapon);
 
             if(bullet) {
                 bullet.fire(player, 3000);
-                player.cooldown = player.fireRate * myGame.frameRate;
+                player.cooldown = 1/player.fireRate * 1000;
             }
         }
-        if (player.cooldown > 0) player.cooldown --;
+        player.cooldown -= delta;
     },
 
     jump: function(player, time, delta) {
@@ -135,10 +133,12 @@ let testingState = new Phaser.Class({
 
     update: function(time, delta) {
         for (let i = 0; i < p.length; i++) {
-            this.move(p[i], time, delta);
-            this.jump(p[i], time, delta);
-            this.shoot(p[i], time, delta);
-            this.physics.world.wrap(p[i]);
+            if (p[i].active) {
+                this.move(p[i], time, delta);
+                this.jump(p[i], time, delta);
+                this.shoot(p[i], time, delta);
+                this.physics.world.wrap(p[i]);
+            }
         }
     }
 });

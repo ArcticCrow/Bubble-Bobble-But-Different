@@ -11,16 +11,21 @@ let Bullet = new Phaser.Class( {
     fire: function(shooter, ttl) {
         let dir = (shooter.flipX === true) ? - 1 : 1;
         this.setPosition(shooter.x + (shooter.width/2 - 2) * dir, shooter.y);
-        this.body.velocity = {x: 150 * dir, y: 10};
-
         this.body.isCircle = true;
-        this.body.gravity.y = -600;
+
+        this.body.allowGravity = false;
+        this.body.setAccelerationY(-300);
+        this.body.velocity = {x: 150 * dir, y: 10};
+        this.body.maxVelocity = 200;
+
         this.ttl = ttl;
     },
 
     pop: function() {
         this.destroy();
     },
+
+    trapDuration: 5000,
 
     update: function(time, delta) {
         this.ttl -= delta;

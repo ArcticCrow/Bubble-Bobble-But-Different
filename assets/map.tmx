@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="32" tileheight="32" infinite="0" nextobjectid="38">
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="32" tileheight="32" infinite="0" nextobjectid="44">
  <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32" tilecount="350" columns="25">
   <image source="tiles.png" width="800" height="448"/>
   <tile id="0">
@@ -1039,7 +1039,7 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="701" name="enemies" tilewidth="32" tileheight="32" tilecount="15" columns="0">
+ <tileset firstgid="701" name="enemies" tilewidth="32" tileheight="32" tilecount="11" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
    <image width="32" height="32" source="characters/slime/death.png"/>
@@ -1056,21 +1056,6 @@
   <tile id="4">
    <image width="32" height="32" source="characters/slime/walk3.png"/>
   </tile>
-  <tile id="5">
-   <image width="32" height="32" source="characters/invert-alien/death.gif"/>
-  </tile>
-  <tile id="6">
-   <image width="32" height="32" source="characters/invert-alien/walk0.png"/>
-  </tile>
-  <tile id="7">
-   <image width="32" height="32" source="characters/invert-alien/walk1.gif"/>
-  </tile>
-  <tile id="8">
-   <image width="32" height="32" source="characters/invert-alien/walk2.gif"/>
-  </tile>
-  <tile id="9">
-   <image width="32" height="32" source="characters/invert-alien/walk3.gif"/>
-  </tile>
   <tile id="10">
    <image width="32" height="32" source="characters/ghost/death.png"/>
   </tile>
@@ -1085,6 +1070,9 @@
   </tile>
   <tile id="14">
    <image width="32" height="32" source="characters/ghost/walk3.png"/>
+  </tile>
+  <tile id="15">
+   <image width="32" height="32" source="bubble.png"/>
   </tile>
  </tileset>
  <layer name="Background" width="40" height="30">
@@ -1224,13 +1212,13 @@
 </data>
  </layer>
  <objectgroup name="EnemySpawns">
-  <object id="29" name="slime" gid="702" x="1108" y="740" width="32" height="32"/>
-  <object id="30" name="ghost" gid="712" x="1038.67" y="274.667" width="32" height="32"/>
-  <object id="31" name="slime" gid="702" x="850.667" y="278.667" width="32" height="32"/>
-  <object id="32" name="slime" gid="702" x="1089.33" y="342.667" width="32" height="32"/>
-  <object id="33" name="slime" gid="702" x="542.667" y="754.667" width="32" height="32"/>
-  <object id="34" name="invert-alien" gid="707" x="828" y="690.667" width="32" height="32"/>
-  <object id="35" name="invert-alien" gid="707" x="532" y="818.667" width="32" height="32"/>
+  <object id="30" name="chaser" type="ghost" gid="712" x="1013.34" y="209.334" width="32" height="32"/>
+  <object id="33" name="jumper" type="slime" gid="702" x="832" y="712" width="32" height="32"/>
+  <object id="38" name="patrol" type="robot" gid="716" x="576" y="685.333" width="32" height="32"/>
+  <object id="40" name="patrol" type="robot" gid="716" x="858.667" y="270.667" width="32" height="32"/>
+  <object id="41" name="jumper" type="slime" gid="702" x="321.333" y="189.333" width="32" height="32"/>
+  <object id="42" name="jumper" type="owl" gid="702" x="1122.67" y="282.667" width="32" height="32"/>
+  <object id="43" name="patrol" type="robot" gid="716" x="989.333" y="838.667" width="32" height="32"/>
  </objectgroup>
  <objectgroup name="PlayerSpawns"/>
  <layer name="Foreground" width="40" height="30">

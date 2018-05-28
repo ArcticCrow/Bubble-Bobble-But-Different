@@ -2,8 +2,7 @@ let Player = new Phaser.Class( {
     Extends: Phaser.GameObjects.Sprite,
 
     initialize: function Player(scene, name, config) {
-        Phaser.GameObjects.Sprite.call(this, scene, config.start.x, config.start.y, "characters",
-            config.spriteKey + "/walk0");
+        Phaser.GameObjects.Sprite.call(this, scene, config.start.x, config.start.y, config.spriteKey, 1);
         this.name = name;
 
         // register keys for player interaction
@@ -23,46 +22,65 @@ let Player = new Phaser.Class( {
         // add animations
         this.scene.anims.create({
             key: this.name + "walk",
-            frames: this.scene.anims.generateFrameNames('characters', {prefix: config.spriteKey + "/walk",
-            start:0, end:3}),
+            frames: this.scene.anims.generateFrameNames(config.spriteKey, {start:1, end:4}),
             frameRate: myGame.frameRate,
             repeat: -1
         }, this);
         this.scene.anims.create({
             key: this.name + "idle",
-            frames: [{key: "characters", frame: config.spriteKey + "/walk0"}],
-            frameRate: myGame.frameRate
+            frames: [{key: config.spriteKey, frame: 1}, {key: config.spriteKey, frame: 3}, {key: config.spriteKey, frame: 1}],
+            frameRate: myGame.frameRate/2,
+            repeat: -1,
+            repeatDelay:2000
         });
         this.scene.anims.create({
             key: this.name + "death",
-            frames: [{key: "characters", frame: config.spriteKey + "/death"}],
+            frames: [{key: config.spriteKey, frame: 0}],
             frameRate: myGame.frameRate
         });
-
-        this.originX = 0.5;
-        this.originY = .75;
-        console.log(this);
     },
 
     setup: function() {
-        this.body.isCircle = true;
-        this.setScale(1.2);
+        this.setScale(1.5);
+        this.enemies = this.scene.enemies.children.entries;
+        this.scene.physics.add.overlap(this.enemies, this.weapon, function(enemy, bullet) {
+            //console.log(this.name + " hit and enemy!", enemy, bullet);
+            enemy.trap(bullet);
+        }, null, this);
     },
+
+    damage: function() {
+        if (this.invincibleTime < 0) {
+            console.log(this.name + " took damage!");
+            this.invincibleTime = 1000 * this.invincibility;
+            this.health --;
+        }
+
+        if (this.health <= 0) {
+            console.log(this.name + " is dead");
+            this.active = false;
+            this.destroy();
+            console.log(this);
+        }
+    },
+
     name: "noname",
     moveSpeed: 200,
     minJumpPower: 200,
-    maxJumpPower: 800,
+    maxJumpPower: 450,
     maxJumpTime: 10,
-    fireRate: 1,
+
     health: 3,
-    invincibility: 1,
+    invincibility: 2.5,
+    invincibleTime: 0,
 
     weapon: undefined,
+    fireRate: 2,
     cooldown: 0,
 
 
     update: function(time, delta) {
-
+        this.invincibleTime -= delta;
     }
 
 

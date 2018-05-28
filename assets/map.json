@@ -50,88 +50,88 @@
          "name":"EnemySpawns",
          "objects":[
                 {
-                 "gid":702,
-                 "height":32,
-                 "id":29,
-                 "name":"slime",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":1108,
-                 "y":740
-                }, 
-                {
                  "gid":712,
                  "height":32,
                  "id":30,
-                 "name":"ghost",
+                 "name":"chaser",
                  "rotation":0,
-                 "type":"",
+                 "type":"ghost",
                  "visible":true,
                  "width":32,
-                 "x":1038.66666666667,
-                 "y":274.666666666667
-                }, 
-                {
-                 "gid":702,
-                 "height":32,
-                 "id":31,
-                 "name":"slime",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":850.666666666667,
-                 "y":278.666666666667
-                }, 
-                {
-                 "gid":702,
-                 "height":32,
-                 "id":32,
-                 "name":"slime",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":1089.33333333333,
-                 "y":342.666666666667
+                 "x":1013.33666666667,
+                 "y":209.333666666667
                 }, 
                 {
                  "gid":702,
                  "height":32,
                  "id":33,
-                 "name":"slime",
+                 "name":"jumper",
                  "rotation":0,
-                 "type":"",
+                 "type":"slime",
                  "visible":true,
                  "width":32,
-                 "x":542.666666666667,
-                 "y":754.666666666667
+                 "x":832.000333333333,
+                 "y":712.000333333333
                 }, 
                 {
-                 "gid":707,
+                 "gid":716,
                  "height":32,
-                 "id":34,
-                 "name":"invert-alien",
+                 "id":38,
+                 "name":"patrol",
                  "rotation":0,
-                 "type":"",
+                 "type":"robot",
                  "visible":true,
                  "width":32,
-                 "x":828,
-                 "y":690.666666666667
+                 "x":576,
+                 "y":685.333333333333
                 }, 
                 {
-                 "gid":707,
+                 "gid":716,
                  "height":32,
-                 "id":35,
-                 "name":"invert-alien",
+                 "id":40,
+                 "name":"patrol",
                  "rotation":0,
-                 "type":"",
+                 "type":"robot",
                  "visible":true,
                  "width":32,
-                 "x":532,
-                 "y":818.666666666667
+                 "x":858.666666666667,
+                 "y":270.666666666667
+                }, 
+                {
+                 "gid":702,
+                 "height":32,
+                 "id":41,
+                 "name":"jumper",
+                 "rotation":0,
+                 "type":"slime",
+                 "visible":true,
+                 "width":32,
+                 "x":321.333333333333,
+                 "y":189.333333333333
+                }, 
+                {
+                 "gid":702,
+                 "height":32,
+                 "id":42,
+                 "name":"jumper",
+                 "rotation":0,
+                 "type":"owl",
+                 "visible":true,
+                 "width":32,
+                 "x":1122.66666666667,
+                 "y":282.666666666667
+                }, 
+                {
+                 "gid":716,
+                 "height":32,
+                 "id":43,
+                 "name":"patrol",
+                 "rotation":0,
+                 "type":"robot",
+                 "visible":true,
+                 "width":32,
+                 "x":989.333333333333,
+                 "y":838.666666666667
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -171,10 +171,10 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":38,
+ "nextobjectid":44,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.1.5",
+ "tiledversion":"1.1.4",
  "tileheight":32,
  "tilesets":[
         {
@@ -5401,7 +5401,7 @@
          "margin":0,
          "name":"enemies",
          "spacing":0,
-         "tilecount":15,
+         "tilecount":11,
          "tileheight":32,
          "tiles":
             {
@@ -5447,6 +5447,12 @@
                  "imageheight":32,
                  "imagewidth":32
                 },
+             "15":
+                {
+                 "image":"bubble.png",
+                 "imageheight":32,
+                 "imagewidth":32
+                },
              "2":
                 {
                  "image":"characters\/slime\/walk1.png",
@@ -5462,36 +5468,6 @@
              "4":
                 {
                  "image":"characters\/slime\/walk3.png",
-                 "imageheight":32,
-                 "imagewidth":32
-                },
-             "5":
-                {
-                 "image":"characters\/invert-alien\/death.gif",
-                 "imageheight":32,
-                 "imagewidth":32
-                },
-             "6":
-                {
-                 "image":"characters\/invert-alien\/walk0.png",
-                 "imageheight":32,
-                 "imagewidth":32
-                },
-             "7":
-                {
-                 "image":"characters\/invert-alien\/walk1.gif",
-                 "imageheight":32,
-                 "imagewidth":32
-                },
-             "8":
-                {
-                 "image":"characters\/invert-alien\/walk2.gif",
-                 "imageheight":32,
-                 "imagewidth":32
-                },
-             "9":
-                {
-                 "image":"characters\/invert-alien\/walk3.gif",
                  "imageheight":32,
                  "imagewidth":32
                 }

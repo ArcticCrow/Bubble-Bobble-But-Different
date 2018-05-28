@@ -4,11 +4,14 @@ let myGame = {
     scenes: [],
 
     // Define common framerate to be referenced in animations
-    frameRate: 10,
+    frameRate: 5,
 };
 
 let audioManager = {
     bgm: undefined,
+};
+
+let audioConfig = {
     marker: 0,
     sfx: {},
     volume: 0.5,
@@ -36,12 +39,12 @@ let pConfig = [
             pause: "ESC",
         },
         start: {
-            x: 100,
+            x: 150,
             y: 847
         },
     },
     {
-        spriteKey: "bug",
+        spriteKey: "nautilus",
         moveSpeed: 100,
         maxJumpPower: 200,
         maxJumpTime: 10,
@@ -66,7 +69,7 @@ let pConfig = [
             pause: "B9", // start
         },*/
         start: {
-            x: 120,
+            x: 180,
             y: 847
         }
     }

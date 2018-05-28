@@ -9,7 +9,8 @@ let preloadState = new Phaser.Class({
     },
 
     loadAssets: function() {
-        this.load.atlas("characters", "characters_new/characters.png", "characters_new/characters.atlas");
+        this.load.atlas("characters", "characters.png", "characters.json");
+        this.load.spritesheet("alien", "alien.png", {frameWidth: 22, frameHeight:22, margin: 2});
         this.load.tilemapTiledJSON("map", "map.json");
         this.load.spritesheet("tiles", "tiles.png", {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet("bg", "tiles-bg.png", {frameWidth: 32, frameHeight: 32});

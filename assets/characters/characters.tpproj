@@ -1,3 +1,37 @@
+name=characters
+filename=characters.json
+output=../characters_new
+
+alias=true
+alphaThreshold=0
+debug=false
+duplicatePadding=false
+edgePadding=true
+fast=false
+filterMag=Nearest
+filterMin=Nearest
+ignoreBlankImages=true
+maxHeight=2048
+maxWidth=2048
+minHeight=16
+minWidth=16
+paddingX=2
+paddingY=2
+pot=true
+rotation=false
+stripWhitespaceX=true
+stripWhitespaceY=true
+wrapX=ClampToEdge
+wrapY=ClampToEdge
+premultiplyAlpha=false
+grid=false
+square=false
+bleed=true
+limitMemory=true
+useIndexes=true
+
+scaleFactors=[{suffix:"",factor:1,resampling:bicubic}]
+inputFiles=[{path:alien/death.png,type:Input,regionName:null},{path:alien/walk3.png,type:Input,regionName:null},{path:alien/walk0.png,type:Input,regionName:null},{path:alien/walk1.png,type:Input,regionName:null},{path:alien/walk2.png,type:Input,regionName:null}]
 
 
 -PROJ-

@@ -15,11 +15,19 @@ let testingState = new Phaser.Class({
     setupScene: function() {
         // Create world terrain
         map = this.make.tilemap({key: "map"});
+        this.backgroundTiles = map.addTilesetImage("bg");
+
+        this.backgroundLayer = map.createDynamicLayer("Background", this.backgroundTiles, 0, 0);
+        this.backWaterLayer = map.createDynamicLayer("BackgroundWater", this.backgroundTiles, 0, 0);
+
+
         this.groundTiles = map.addTilesetImage("tiles");
         this.groundLayer = map.createDynamicLayer("Ground", this.groundTiles, 0, 0);
         this.groundLayer.setCollisionByExclusion([-1]);
         this.platformLayer = map.createDynamicLayer("Platforms", this.groundTiles, 0, 0);
         this.platformLayer.setCollisionByExclusion([-1]);
+
+        this.sys.animatedTiles.init(map);
 
 
         // Create players
@@ -59,6 +67,8 @@ let testingState = new Phaser.Class({
     },
 
     create: function() {
+        this.sys.install('AnimatedTiles');
+
         this.setupMusic();
         this.setupScene();
     },

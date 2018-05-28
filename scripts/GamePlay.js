@@ -28,8 +28,8 @@ let gamePlayState = new Phaser.Class({
         this.platformLayer.setCollisionByExclusion([-1]);
 
         // Create tiles
-        //this.backgroundLayer = map.createDynamicLayer("Background", this.backgroundTiles, 0, 0);
-        //this.backWaterLayer = map.createDynamicLayer("BackgroundWater", this.backgroundTiles, 0, 0);
+        this.backgroundLayer = map.createDynamicLayer("Background", this.backgroundTiles, 0, 0);
+        this.backWaterLayer = map.createDynamicLayer("BackgroundWater", this.backgroundTiles, 0, 0);
 
         //this.foregroundLayer = map.createDynamicLayer("Foreground", this.groundTiles, 0, 0);
         //this.waterLayer = map.createDynamicLayer("Water", this.groundTiles, 0, 0);

@@ -38,6 +38,18 @@ let Player = new Phaser.Class( {
             frames: [{key: config.spriteKey, frame: 0}],
             frameRate: myGame.frameRate
         });
+
+        // TODO damage effect
+        let _this = this;
+        this.damageTween = this.scene.tweens.addCounter({
+            from: 0,
+            to: _this.invincibility / .5 - 1,
+            duration: 500,
+            onUpdate: function() {
+                _this.setTint(0xffffff);
+            }
+        });
+
     },
 
     setup: function() {
@@ -47,7 +59,6 @@ let Player = new Phaser.Class( {
             //console.log(this.name + " hit and enemy!", enemy, bullet);
             if (enemy.trappedTime <= 0) {
                 enemy.trap(bullet, this.trapTime);
-                console.log(1);
             }
         }, null, this);
     },
@@ -63,14 +74,19 @@ let Player = new Phaser.Class( {
             console.log(this.name + " is dead");
             this.active = false;
             this.destroy();
-            console.log(this);
         }
+    },
+
+    addScore: function(score) {
+        this.score += score;
+        totalScore += score;
     },
 
     name: "noname",
     moveSpeed: 200,
-    minJumpPower: 200,
-    maxJumpPower: 450,
+    minJumpPower: 250,
+    maxJumpPower: 650,
+    jumpTime: 0,
     maxJumpTime: 10,
 
     health: 3,
@@ -81,6 +97,8 @@ let Player = new Phaser.Class( {
     fireRate: 2,
     cooldown: 0,
     trapTime: 4,
+
+    score: 0,
 
 
     update: function(time, delta) {

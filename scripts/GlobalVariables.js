@@ -19,11 +19,14 @@ let audioConfig = {
     muteBGM: false
 };
 
+let totalScore = 0;
+let currentLevel = 1;
+
 let characters = [
     {key: "alien"},
     {key: "bug"}
 ];
-let playerCount = 2;
+let playerCount = 1;
 let p = [{}, {}];
 let pConfig = [
     {

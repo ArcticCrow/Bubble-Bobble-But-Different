@@ -37,23 +37,39 @@ let Enemy = new Phaser.Class({
 
     setup: function() {
         this.setScale(1.8);
-        this.body.setCollideWorldBounds(true);
 
         this.targets = this.scene.players.children.entries;
         this.playerCollision = this.scene.physics.add.overlap(this.targets, this, function(player , enemy){
             if (this.trappedTime <= 0) {
                 player.takeDamage();
             } else {
-                if (player.body.velocity.y > 0 && player.body.x > enemy.body.x) {
-                    console.log("takeDamage the enemy");
-                    player.body.velocity.y -= player.minJumpPower;
-                    this.takeDamage();
+                if (enemy.body.touching.up) {
+                    player.body.velocity.y = -player.minJumpPower;
+                    this.takeDamage(player);
                 }
             }
         }, null, this);
 
         switch (this.type) {
+            case "patrol":
+                this.value = 100;
+
+                this.body.setVelocity(this.speed);
+                this.body.setBounce(1, 0);
+                this.move = function(time, delta) {
+                    this.anims.play(this.name + "walk", true);
+                    if (this.body.velocity.x > 0) {
+                        this.flipX = false;
+                    }
+                    else if (this.body.velocity.x < 0) {
+                        this.flipX = true;
+                    }
+                };
+                break;
+
             case "jumper":
+                this.value = 200;
+
                 this.cooldown = Phaser.Math.Between(2000, 4000);
                 this.body.setBounce(1);
                 this.move = function(time, delta) {
@@ -72,8 +88,9 @@ let Enemy = new Phaser.Class({
                 break;
 
             case "chaser":
+                this.value = 300;
+
                 this.body.allowGravity = false;
-                this.anims.play(this.name+"walk", true);
 
                 this.move = function(time, delta) {
                     if (this.targets.length <= 0) {
@@ -89,6 +106,9 @@ let Enemy = new Phaser.Class({
                         // noinspection JSSuspiciousNameCombination
                         let absDist = Math.abs(xDist) + Math.abs(yDist);
                         if (closestDistance === undefined || closestDistance > absDist) {
+
+                            this.anims.play(this.name+"walk", true);
+
                             closestDistance = absDist;
 
                             // make enemy face and chase player
@@ -102,39 +122,35 @@ let Enemy = new Phaser.Class({
                     this.body.setVelocity(velocity.x, velocity.y);
                 };
                 break;
-
-            case "patrol":
-                this.anims.play(this.name + "walk");
-                this.body.setVelocity(this.speed);
-                this.body.setBounce(1, 0);
-                this.move = function(time, delta) {
-                    if (this.body.velocity.x > 0) {
-                        this.flipX = false;
-                    }
-                    else if (this.body.velocity.x < 0) {
-                        this.flipX = true;
-                    }
-                };
-                break;
         }
     },
 
     trap: function(bullet, trapTime) {
-        bullet.body.enable = false;
+
+        this.trapBullet = bullet;
+        this.trapBullet.body.enable = false;
+        this.trapBullet.body.moves = false;
+        this.trapBullet.ttl = trapTime * 1000;
+        this.trapBullet.setPosition(this.body.position.x + this.body.width/2, this.body.position.y + this.body.height/2);
+        this.trapBullet.setScale(1.7);
+
         this.trappedTime = trapTime * 1000;
-        bullet.ttl = trapTime * 1000;
         this.body.moves = false;
-        bullet.body.moves = false;
-        bullet.setPosition(this.body.position.x + this.body.width/2, this.body.position.y + this.body.height/2);
     },
 
-    takeDamage: function() {
+    takeDamage: function(player) {
         this.health--;
         if (this.health <= 0) {
+
+            player.addScore(this.value);
+
             this.destroy();
+            if (this.trapBullet !== undefined)
+                this.trapBullet.destroy();
         }
     },
 
+    value: 0,
     speed: 150,
     jumpPower: 300,
     trappedTime: 0,
@@ -143,6 +159,7 @@ let Enemy = new Phaser.Class({
     update: function(time, delta) {
         if (this.trappedTime > 0) {
             // float upwards
+            this.anims.play(this.name + "idle", true);
 
         }
         else if (this.move !== undefined) {

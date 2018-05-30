@@ -45,11 +45,12 @@ let testingState = new Phaser.Class({
 
         this.platformLayer.forEachTile(function(tile){
             tile.collideDown = false;
+            tile.collideRight = false;
+            tile.collideLeft = false;
         });
 
         // Create enemies
         for(let id in map.getObjectLayer("EnemySpawns").objects) {
-            console.log(map.getObjectLayer("EnemySpawns").objects[id]);
             let enemy = new Enemy(this, map.getObjectLayer("EnemySpawns").objects[id]);
             this.enemies.add(enemy, true);
             enemy.setup();
@@ -62,8 +63,87 @@ let testingState = new Phaser.Class({
         this.physics.world.bounds.width = this.groundLayer.width;
         this.physics.world.bounds.height = this.groundLayer.height;
 
+
+
+        this.children.bringToTop(p[1]);
+        this.children.bringToTop(p[0]);
         /*let pads = this.input.gamepads.getAll();
         console.log("connected pads:",pads);*/
+    },
+
+    setupUI: function() {
+        this.ui = {
+            p: [{ // PLAYER 1
+                hp: this.add.text(10, 950, "HP: " + p[0].health + "\nPlayer 1", {
+                    fontFamily: "Arial",
+                    fontSize: 26,
+                    color: "#0f8",
+                    align: "left"
+                }).setStroke('#000', 4).setOrigin(0, 1),
+
+                score: this.add.text(10, 10, "Score:\n000000000", {
+                    fontFamily: "Arial",
+                    fontSize: 26,
+                    color: "#0f8",
+                    align: "left"
+                }).setStroke('#000', 4).setOrigin(0, 0),
+                indicator: this.add.container(p[0].x, p[0].y - 30, [
+                    this.make.sprite({key:"indicator"}, true)
+                        .setScale(1, 1.2).setTint(0x00ff88),
+                    this.make.text({
+                        text: "",
+                        style: {
+                            fontSize: "16px",
+                            fontFamily: "Arial",
+                            color: "#00AA11",
+                            align: "center"
+                        }
+                    }).setOrigin(0.5, 0.7)
+                ]).setAlpha(.8)
+            },
+            {   // PLAYER 2
+                hp: this.add.text(1270, 950, "HP: " + p[1].health + "\nPlayer 2", {
+                    fontFamily: "Arial",
+                    fontSize: 26,
+                    color: "#f50",
+                    align: "right"
+                }).setStroke('#000', 4).setOrigin(1, 1),
+                score: this.add.text(1270, 10, "Score:\n000000000", {
+                    fontFamily: "Arial",
+                    fontSize: 26,
+                    color: "#f50",
+                    align: "right"
+                }).setStroke('#000', 4).setOrigin(1, 0),
+                indicator: this.add.container(p[1].x, p[1].y - 30, [
+                    this.make.sprite({key:"indicator"}, true)
+                        .setScale(1, 1.2).setTint(0xff5500),
+                    this.make.text({
+                        text: "",
+                        style: {
+                            fontSize: "16px",
+                            fontFamily: "Arial",
+                            color: "#AA1100",
+                            align: "center"
+                        }
+                    }).setOrigin(0.5, 0.7)
+                ]).setAlpha(.8)
+            }],
+            game: {
+                levelCounter: this.add.text(1280 / 2, 10, "Level 1", {
+                    fontFamily: "Arial",
+                    fontSize: 16,
+                    color: "#fff",
+                    align: "center"
+                }).setStroke('#fff', 1).setOrigin(.5, 0),
+                score: this.add.text(1280 / 2, 30, "000000000", {
+                    fontFamily: "Arial",
+                    fontSize: 40,
+                    color: "#fff",
+                    align: "center"
+                }).setStroke('#000', 4).setOrigin(.5, 0)
+            }
+        };
+        console.log(this.ui);
     },
 
     create: function() {
@@ -71,6 +151,7 @@ let testingState = new Phaser.Class({
 
         this.setupMusic();
         this.setupScene();
+        this.setupUI();
     },
 
     move: function(player, time, delta) {
@@ -131,7 +212,34 @@ let testingState = new Phaser.Class({
 
     },
 
+    updateUI: function() {
+        // Update player uis
+        for (let i = 0; i < p.length; i++) {
+            if (p[i].active) {
+                this.ui.p[i].hp.setText("HP: " + p[i].health + "\nPlayer " + (i+1));
+                this.ui.p[i].indicator.setPosition(p[i].x, p[i].y - 30);
+                this.ui.p[i].score.setText("Score:\n"+ ("000000000" + p[i].score).substr(p[i].score.toString().length, 10));
+            } else {
+                this.ui.p[i].hp.setText("INSERT COIN\nPlayer " + (i+1));
+                this.ui.p[i].indicator.destroy();
+            }
+        }
+
+        this.ui.game.score.setText(("000000000" + totalScore).substr(totalScore.toString().length, 10));
+    },
+
     update: function(time, delta) {
+        // Run ui updates
+        this.updateUI();
+
+        // No players left alive
+        if (this.players.countActive(true) <= 0) {
+            this.gameOver();
+            return;
+        }
+
+        // Handle player input
+        // TODO outsource to player class
         for (let i = 0; i < p.length; i++) {
             if (p[i].active) {
                 this.move(p[i], time, delta);
@@ -140,6 +248,11 @@ let testingState = new Phaser.Class({
                 this.physics.world.wrap(p[i]);
             }
         }
+        this.physics.world.wrap(this.enemies);
+    },
+
+    gameOver: function() {
+        console.log("Both players are dead. The game is over!");
     }
 });
 

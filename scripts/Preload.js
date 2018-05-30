@@ -23,6 +23,7 @@ let preloadState = new Phaser.Class({
         this.load.spritesheet("tiles", "tiles.png", {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet("bg", "tiles-bg.png", {frameWidth: 32, frameHeight: 32});
         this.load.image('bullet', 'bubble.png');
+        this.load.image('indicator', 'indicator.png');
     },
 
     loadAudio: function() {

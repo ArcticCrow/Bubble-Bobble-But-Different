@@ -100,9 +100,14 @@ let Player = new Phaser.Class( {
 
     score: 0,
 
+    activePickups: [],
 
     update: function(time, delta) {
         this.invincibleTime -= delta;
+
+        for (let i = 0; i < this.activePickups.length; i++) {
+            console.log(this.activePickups[i]);
+        }
     }
 
 

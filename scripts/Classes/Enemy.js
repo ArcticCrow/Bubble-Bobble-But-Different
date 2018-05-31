@@ -144,9 +144,12 @@ let Enemy = new Phaser.Class({
 
             player.addScore(this.value);
 
+            new Pickup(this.scene, this.body.position);
+
             this.destroy();
-            if (this.trapBullet !== undefined)
+            if (this.trapBullet !== undefined) {
                 this.trapBullet.destroy();
+            }
         }
     },
 

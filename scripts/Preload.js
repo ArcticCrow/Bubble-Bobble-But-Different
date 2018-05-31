@@ -24,6 +24,11 @@ let preloadState = new Phaser.Class({
         this.load.spritesheet("bg", "tiles-bg.png", {frameWidth: 32, frameHeight: 32});
         this.load.image('bullet', 'bubble.png');
         this.load.image('indicator', 'indicator.png');
+
+        this.load.spritesheet("weapons", "pickups/powerup.png", {frameWidth: 32, frameHeight: 32, startFrame:0, endFrame: 4});
+        this.load.spritesheet("powers", "pickups/powerup.png", {frameWidth: 32, frameHeight: 32, startFrame:5, endFrame: 7});
+        this.load.spritesheet("health", "pickups/pickups.png", {frameWidth: 32, frameHeight: 32, startFrame:0, endFrame: 3});
+        this.load.spritesheet("score", "pickups/score.png", {frameWidth: 16, frameHeight: 16});
     },
 
     loadAudio: function() {
@@ -53,6 +58,8 @@ let preloadState = new Phaser.Class({
 
     preload: function() {
         this.load.baseURL = "./assets/";
+
+        // TODO this.load.setPath();
 
         this.loadPlugins();
         this.loadAssets();

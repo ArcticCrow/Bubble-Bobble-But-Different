@@ -143,7 +143,6 @@ let testingState = new Phaser.Class({
                 }).setStroke('#000', 4).setOrigin(.5, 0)
             }
         };
-        console.log(this.ui);
     },
 
     create: function() {
@@ -231,13 +230,13 @@ let testingState = new Phaser.Class({
     update: function(time, delta) {
         // Run ui updates
         this.updateUI();
+        this.physics.world.wrap(this.enemies);
 
         // No players left alive
         if (this.players.countActive(true) <= 0) {
             this.gameOver();
             return;
         }
-
         // Handle player input
         // TODO outsource to player class
         for (let i = 0; i < p.length; i++) {
@@ -248,7 +247,6 @@ let testingState = new Phaser.Class({
                 this.physics.world.wrap(p[i]);
             }
         }
-        this.physics.world.wrap(this.enemies);
     },
 
     gameOver: function() {

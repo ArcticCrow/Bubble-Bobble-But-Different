@@ -21,6 +21,7 @@ let audioConfig = {
 
 let totalScore = 0;
 let currentLevel = 1;
+let pickupChance = 100;
 
 let characters = [
     {key: "alien"},

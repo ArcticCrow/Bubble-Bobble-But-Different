@@ -75,6 +75,7 @@ let Enemy = new Phaser.Class({
                 this.move = function(time, delta) {
                     if (this.body.onFloor() && this.cooldown <= 0) {
                         let dir = Phaser.Math.Between(0, 1);
+                        this.flipX = !dir;
                         dir = (dir === 0)? -1 : 1;
                         this.body.setVelocity(this.speed * dir, -this.jumpPower);
                         this.cooldown = Phaser.Math.Between(1000, 2500);
@@ -144,7 +145,7 @@ let Enemy = new Phaser.Class({
 
             player.addScore(this.value);
 
-            new Pickup(this.scene, this.body.position);
+            new Pickup(this.scene, this.body.center);
 
             this.destroy();
             if (this.trapBullet !== undefined) {

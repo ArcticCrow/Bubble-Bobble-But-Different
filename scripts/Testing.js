@@ -172,12 +172,7 @@ let testingState = new Phaser.Class({
             player.anims.play(player.name + "idle", true);
         }
 
-        if (player.down.isDown) {
-            player.platformCollision.overlapOnly = true;
-        } else {
-            // TODO wait for player to fall down
-            player.platformCollision.overlapOnly = false;
-        }
+        player.platformCollision.overlapOnly = player.down.isDown;
     },
 
     shoot: function(player, time, delta) {

@@ -50,25 +50,29 @@ let Pickup = new Phaser.Class( {
                 break;
         }
 
-        /*let pickup = ;*/
-
-        //if (this.type === "score") pickup.setScale(2);
-
-        Phaser.GameObjects.Container.call(this, scene, position.x, position.y, [
-            scene.make.sprite({
+        let pickup = scene.make.sprite({
+            key: spritesheet,
+            frame: frame,
+            x: position.x,
+            y: position.y
+        });
+        let bubble = scene.make.sprite({
                 key: "bullet",
-            }).setTint(tint).setScale(1.5),
-            scene.make.sprite({
-                x: 0,
-                y: 0,
-                key: spritesheet,
-                frame: frame
-            }, false)
-        ]);
+                x: position.x,
+                y: position.y,
+        }).setTint(tint).setScale(1.5);
+        if (this.type === "score") pickup.setScale(2);
+        this.fakeCont = scene.add.group();
+        this.fakeCont.add(pickup);
+        this.fakeCont.add(bubble);
+
+        /* FIXME Extended containers are apparently really buggy, so until they get fixed,
+        I am just going to juggle with 2 sprites instead */
+        Phaser.GameObjects.Container.call(this, scene, position.x, position.y);
 
         this.setPosition(position.x, position.y);
 
-        console.log(this);
+        this.scene.events.on('update', this.update, this);
     },
 
     pickupType: undefined,
@@ -119,10 +123,16 @@ let Pickup = new Phaser.Class( {
         "regeneration"
     ],
 
+    expire: function() {
+        console.log(this.fakeCont);
+        this.fakeCont.active = false;
+        this.fakeCont.destroy();
+    },
+
     update: function(time, delta){
         this.ttl -= delta;
-        if (this.ttl <= 0) {
-            this.destroy();
+        if (this.ttl <= 0 && this.fakeCont.active) {
+            this.expire();
         }
     }
 

@@ -3556,7 +3556,7 @@ declare namespace Phaser {
          * 
          * Animations are managed by the global Animation Manager. This is a singleton class that is
          * responsible for creating and delivering animations and their corresponding data to all Game Objects.
-         * Unlike plugins it is owned by the Game instance, not the Scene.
+         * Unlike Plugins it is owned by the Game instance, not the Scene.
          * 
          * Sprites and other Game Objects get the data they need from the AnimationManager.
          */
@@ -3823,8 +3823,8 @@ declare namespace Phaser {
         /**
          * An instance of the Plugin Manager.
          * 
-         * The Plugin Manager is a global system that allows plugins to register themselves with it, and can then install
-         * those plugins into Scenes as required.
+         * The Plugin Manager is a global system that allows Plugins to register themselves with it, and can then install
+         * those Plugins into Scenes as required.
          */
         plugins: Phaser.Plugins.PluginManager;
 
@@ -4201,7 +4201,7 @@ declare namespace Phaser {
             readonly installScenePlugins: any;
 
             /**
-             * The plugins installed into every Scene (in addition to CoreScene and Global).
+             * The Plugins installed into every Scene (in addition to CoreScene and Global).
              */
             readonly defaultPlugins: any;
 
@@ -12788,7 +12788,7 @@ declare namespace Phaser {
 
             /**
              * The Tab Index of the Game Object.
-             * Reserved for future use by plugins and the Input Manager.
+             * Reserved for future use by Plugins and the Input Manager.
              */
             tabIndex: integer;
 
@@ -29122,7 +29122,7 @@ declare namespace Phaser {
              * ```javascript
              * function preload ()
              * {
-             *     this.load.plugin('modplayer', 'plugins/ModPlayer.js');
+             *     this.load.plugin('modplayer', 'Plugins/ModPlayer.js');
              * }
              * ```
              * 
@@ -29141,7 +29141,7 @@ declare namespace Phaser {
              * ```javascript
              * this.load.plugin({
              *     key: 'modplayer',
-             *     url: 'plugins/ModPlayer.js'
+             *     url: 'Plugins/ModPlayer.js'
              * });
              * ```
              * 
@@ -29175,7 +29175,7 @@ declare namespace Phaser {
              * ```javascript
              * function preload ()
              * {
-             *     this.load.scenePlugin('ModPlayer', 'plugins/ModPlayer.js', 'modPlayer', 'mods');
+             *     this.load.scenePlugin('ModPlayer', 'Plugins/ModPlayer.js', 'modPlayer', 'mods');
              * }
              * ```
              * 
@@ -29194,7 +29194,7 @@ declare namespace Phaser {
              * ```javascript
              * this.load.scenePlugin({
              *     key: 'modplayer',
-             *     url: 'plugins/ModPlayer.js'
+             *     url: 'Plugins/ModPlayer.js'
              * });
              * ```
              * 
@@ -43135,23 +43135,23 @@ declare namespace Phaser {
              */
             Global: any[];
             /**
-             * These are the core plugins that are installed into every Scene.Systems instance, no matter what.
+             * These are the core Plugins that are installed into every Scene.Systems instance, no matter what.
              */
             CoreScene: any[];
             /**
-             * These plugins are created in Scene.Systems in addition to the CoreScenePlugins.
+             * These Plugins are created in Scene.Systems in addition to the CoreScenePlugins.
              */
             DefaultScene: any[];
         };
 
         /**
          * These are the Global Managers that are created by the Phaser.Game instance.
-         * They are referenced from Scene.Systems so that plugins can use them.
+         * They are referenced from Scene.Systems so that Plugins can use them.
          */
         var Global: any[];
 
         /**
-         * These are the core plugins that are installed into every Scene.Systems instance, no matter what.
+         * These are the core Plugins that are installed into every Scene.Systems instance, no matter what.
          * They are optionally exposed in the Scene as well (see the InjectionMap for details)
          * 
          * They are created in the order in which they appear in this array and EventEmitter is always first.
@@ -43159,9 +43159,9 @@ declare namespace Phaser {
         var CoreScene: any[];
 
         /**
-         * These plugins are created in Scene.Systems in addition to the CoreScenePlugins.
+         * These Plugins are created in Scene.Systems in addition to the CoreScenePlugins.
          * 
-         * You can elect not to have these plugins by either creating a DefaultPlugins object as part
+         * You can elect not to have these Plugins by either creating a DefaultPlugins object as part
          * of the Game Config, by creating a Plugins object as part of a Scene Config, or by modifying this array
          * and building your own bundle.
          * 
@@ -43172,11 +43172,11 @@ declare namespace Phaser {
         var DefaultScene: any[];
 
         /**
-         * The PluginManager is responsible for installing and adding plugins to Phaser.
+         * The PluginManager is responsible for installing and adding Plugins to Phaser.
          * 
          * It is a global system and therefore belongs to the Game instance, not a specific Scene.
          * 
-         * It works in conjunction with the PluginCache. Core internal plugins automatically register themselves 
+         * It works in conjunction with the PluginCache. Core internal Plugins automatically register themselves
          * with the Cache, but it's the Plugin Manager that is responsible for injecting them into the Scenes.
          * 
          * There are two types of plugin:
@@ -43200,7 +43200,7 @@ declare namespace Phaser {
          * 2) Include it in your source code and install it via the Game Config
          * 3) Include it in your source code and install it within a Scene
          * 
-         * For examples of all of these approaches please see the Phaser 3 Examples Repo `plugins` folder.
+         * For examples of all of these approaches please see the Phaser 3 Examples Repo `Plugins` folder.
          * 
          * For information on creating your own plugin please see the Phaser 3 Plugin Template.
          */
@@ -43217,7 +43217,7 @@ declare namespace Phaser {
             game: Phaser.Game;
 
             /**
-             * The global plugins currently running and managed by this Plugin Manager.
+             * The global Plugins currently running and managed by this Plugin Manager.
              * A plugin must have been started at least once in order to appear in this list.
              */
             plugins: GlobalPlugin[];
@@ -43228,20 +43228,20 @@ declare namespace Phaser {
             scenePlugins: string[];
 
             /**
-             * Run once the game has booted and installs all of the plugins configured in the Game Config.
+             * Run once the game has booted and installs all of the Plugins configured in the Game Config.
              */
             protected boot(): void;
 
             /**
-             * Called by the Scene Systems class. Tells the plugin manager to install all Scene plugins into it.
-             * @param sys The Scene Systems class to install all the plugins in to.
-             * @param globalPlugins An array of global plugins to install.
-             * @param scenePlugins An array of scene plugins to install.
+             * Called by the Scene Systems class. Tells the plugin manager to install all Scene Plugins into it.
+             * @param sys The Scene Systems class to install all the Plugins in to.
+             * @param globalPlugins An array of global Plugins to install.
+             * @param scenePlugins An array of scene Plugins to install.
              */
             protected addToScene(sys: Phaser.Scenes.Systems, globalPlugins: any[], scenePlugins: any[]): void;
 
             /**
-             * Called by the Scene Systems class. Returns a list of plugins to be installed.
+             * Called by the Scene Systems class. Returns a list of Plugins to be installed.
              */
             protected getDefaultScenePlugins(): string[];
 
@@ -43255,14 +43255,14 @@ declare namespace Phaser {
              * the Scene as. For example:
              * 
              * ```javascript
-             * this.plugins.installScenePlugin('powerupsPlugin', pluginCode, 'powerups');
+             * this.Plugins.installScenePlugin('powerupsPlugin', pluginCode, 'powerups');
              * 
              * // and from within the scene:
              * this.sys.powerupsPlugin; // key value
              * this.powerups; // mapping value
              * ```
              * 
-             * This method is called automatically by Phaser if you install your plugins using either the
+             * This method is called automatically by Phaser if you install your Plugins using either the
              * Game Configuration object, or by preloading them via the Loader.
              * @param key The property key that will be used to add this plugin to Scene.Systems.
              * @param plugin The plugin code. This should be the non-instantiated version.
@@ -43279,13 +43279,13 @@ declare namespace Phaser {
              * The `key` property is what you use to access this plugin from the Plugin Manager.
              * 
              * ```javascript
-             * this.plugins.install('powerupsPlugin', pluginCode);
+             * this.Plugins.install('powerupsPlugin', pluginCode);
              * 
              * // and from within the scene:
-             * this.plugins.get('powerupsPlugin');
+             * this.Plugins.get('powerupsPlugin');
              * ```
              * 
-             * This method is called automatically by Phaser if you install your plugins using either the
+             * This method is called automatically by Phaser if you install your Plugins using either the
              * Game Configuration object, or by preloading them via the Loader.
              * 
              * The same plugin can be installed multiple times into the Plugin Manager by simply giving each
@@ -43332,7 +43332,7 @@ declare namespace Phaser {
             /**
              * Stops a global plugin from running.
              * 
-             * If the plugin is active then its active state will be set to false and the plugins `stop` method
+             * If the plugin is active then its active state will be set to false and the Plugins `stop` method
              * will be called.
              * 
              * If the plugin is not already running, nothing will happen.
@@ -43384,7 +43384,7 @@ declare namespace Phaser {
              * Game Object. For example:
              * 
              * ```javascript
-             * this.plugins.registerGameObject('clown', clownFactoryCallback, clownCreatorCallback);
+             * this.Plugins.registerGameObject('clown', clownFactoryCallback, clownCreatorCallback);
              * // later in your game code:
              * this.add.clown();
              * this.make.clown();
@@ -43418,7 +43418,7 @@ declare namespace Phaser {
              * files. For example:
              * 
              * ```javascript
-             * this.plugins.registerFileType('wad', doomWadLoaderCallback);
+             * this.Plugins.registerFileType('wad', doomWadLoaderCallback);
              * // later in your preload code:
              * this.load.wad();
              * ```
@@ -43439,8 +43439,8 @@ declare namespace Phaser {
             registerFileType(key: string, callback: Function): void;
 
             /**
-             * Destroys this Plugin Manager and all associated plugins.
-             * It will iterate all plugins found and call their `destroy` methods.
+             * Destroys this Plugin Manager and all associated Plugins.
+             * It will iterate all Plugins found and call their `destroy` methods.
              * Note that the PluginCache is NOT cleared by this as it doesn't hold any plugin instances.
              */
             destroy(): void;
@@ -45462,13 +45462,13 @@ declare namespace Phaser {
         var DESTROYED: integer;
 
         /**
-         * Builds an array of which physics plugins should be activated for the given Scene.
+         * Builds an array of which physics Plugins should be activated for the given Scene.
          * @param sys The scene system to get the physics systems of.
          */
         function GetPhysicsPlugins(sys: Phaser.Scenes.Systems): any[];
 
         /**
-         * Builds an array of which plugins (not including physics plugins) should be activated for the given Scene.
+         * Builds an array of which Plugins (not including physics Plugins) should be activated for the given Scene.
          * @param sys [description]
          */
         function GetScenePlugins(sys: Phaser.Scenes.Systems): any[];
@@ -46088,7 +46088,7 @@ declare namespace Phaser {
          * The Scene Systems class.
          * 
          * This class is available from within a Scene under the property `sys`.
-         * It is responsible for managing all of the plugins a Scene has running, including the display list, and
+         * It is responsible for managing all of the Plugins a Scene has running, including the display list, and
          * handling the update step and renderer. It also contains references to global systems belonging to Game.
          */
         class Systems {
@@ -46196,7 +46196,7 @@ declare namespace Phaser {
 
             /**
              * This method is called only once by the Scene Manager when the Scene is instantiated.
-             * It is responsible for setting up all of the Scene plugins and references.
+             * It is responsible for setting up all of the Scene Plugins and references.
              * It should never be called directly.
              * @param game A reference to the Phaser Game instance.
              */
@@ -46315,7 +46315,7 @@ declare namespace Phaser {
             /**
              * Shutdown this Scene and send a shutdown event to all of its systems.
              * A Scene that has been shutdown will not run its update loop or render, but it does
-             * not destroy any of its plugins or references. It is put into hibernation for later use.
+             * not destroy any of its Plugins or references. It is put into hibernation for later use.
              * If you don't ever plan to use this Scene again, then it should be destroyed instead
              * to free-up resources.
              */
@@ -55114,7 +55114,7 @@ declare type CustomPluginContainer = {
 declare namespace Phaser.Plugins.PluginCache {
     /**
      * Static method called directly by the Core internal Plugins.
-     * Key is a reference used to get the plugin from the plugins object (i.e. InputPlugin)
+     * Key is a reference used to get the plugin from the Plugins object (i.e. InputPlugin)
      * Plugin is the object to instantiate to create the plugin
      * Mapping is what the plugin is injected into the Scene.Systems as (i.e. input)
      * @param key A reference used to get this plugin from the plugin cache.

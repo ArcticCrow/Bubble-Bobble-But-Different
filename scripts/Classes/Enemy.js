@@ -11,7 +11,8 @@ let Enemy = new Phaser.Class({
             //console.log("Creating enemy animation for", config.name + "walk");
             this.scene.anims.create({
                 key: this.name + "walk",
-                frames: this.scene.anims.generateFrameNames(this.name, {start:1, end:4}),
+                frames: this.scene.anims.generateFrameNames(this.name, {start:2, end:4})
+                    .concat({key:this.name, frame: "3"}),
                 frameRate: myGame.frameRate,
                 repeat: -1
             }, this);

@@ -5,6 +5,9 @@ let myGame = {
 
     // Define common framerate to be referenced in animations
     frameRate: 5,
+    primaryFont: "Arial",
+    //FIXME no custom font support so far? primaryFont: "editundo",
+    secondaryFont: "monospace"
 };
 
 let audioManager = {
@@ -21,13 +24,13 @@ let audioConfig = {
 
 let totalScore = 0;
 let currentLevel = 1;
-let pickupChance = 100;
+let pickupChance = 20;
 
 let characters = [
     {key: "alien"},
     {key: "bug"}
 ];
-let playerCount = 1;
+let playerCount = 2;
 let p = [{}, {}];
 let pConfig = [
     {

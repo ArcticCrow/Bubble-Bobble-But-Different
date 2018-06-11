@@ -1,3 +1,8 @@
+@font-face {
+    font-family: editundo;
+    src: url("../assets/fonts/editundo.ttf");
+}
+
 body {
     margin: 0;
     overflow: hidden;

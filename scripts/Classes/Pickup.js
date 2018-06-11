@@ -13,6 +13,9 @@ let Pickup = new Phaser.Class( {
 
         this.pickupType = type;
 
+        /* FIXME Extended containers are apparently really buggy, so until they get fixed,
+        I am just going to juggle with 2 sprites instead */
+        Phaser.GameObjects.Container.call(this, scene, position.x, position.y);
 
         let spritesheet = "";
         let frame = 0;
@@ -56,23 +59,21 @@ let Pickup = new Phaser.Class( {
             x: position.x,
             y: position.y
         });
+        if (this.type === "score") pickup.setScale(2);
+
         let bubble = scene.make.sprite({
                 key: "bullet",
                 x: position.x,
                 y: position.y,
         }).setTint(tint).setScale(1.5);
-        if (this.type === "score") pickup.setScale(2);
-        this.fakeCont = scene.add.group();
-        this.fakeCont.add(pickup);
-        this.fakeCont.add(bubble);
 
-        /* FIXME Extended containers are apparently really buggy, so until they get fixed,
-        I am just going to juggle with 2 sprites instead */
-        Phaser.GameObjects.Container.call(this, scene, position.x, position.y);
-
-        this.setPosition(position.x, position.y);
+        this.sprites = this.scene.add.group();
+        this.sprites.add(pickup);
+        this.sprites.add(bubble);
+        console.log(this.sprites.getChildren().length);
 
         this.scene.events.on('update', this.update, this);
+        console.log(this);
     },
 
     pickupType: undefined,
@@ -84,7 +85,7 @@ let Pickup = new Phaser.Class( {
         "nuke"
     ],
 
-    ttl: 5000,
+    ttl: 1000,
 
     // Health pickup
     restoration: 1,
@@ -124,14 +125,19 @@ let Pickup = new Phaser.Class( {
     ],
 
     expire: function() {
-        console.log(this.fakeCont);
-        this.fakeCont.active = false;
-        this.fakeCont.destroy();
+        let sprites = this.sprites.getChildren();
+        for (let i = sprites.length -1; i >= 0; i--) {
+            console.log(sprites, sprites[i]);
+            sprites[i].destroy();
+        }
+        this.destroy();
     },
 
     update: function(time, delta){
+
         this.ttl -= delta;
-        if (this.ttl <= 0 && this.fakeCont.active) {
+        //console.log(this.sprites);
+        if (this.ttl <= 0 && this.active) {
             this.expire();
         }
     }

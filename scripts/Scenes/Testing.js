@@ -43,6 +43,7 @@ let testingState = new Phaser.Class({
         }
         this.physics.add.collider(this.players, this.groundLayer, null, null, this);
 
+        // Setup platform collision
         this.platformLayer.forEachTile(function(tile){
             tile.collideDown = false;
             tile.collideRight = false;
@@ -63,8 +64,7 @@ let testingState = new Phaser.Class({
         this.physics.world.bounds.width = this.groundLayer.width;
         this.physics.world.bounds.height = this.groundLayer.height;
 
-
-
+        // Bring players to the the front
         this.children.bringToTop(p[1]);
         this.children.bringToTop(p[0]);
         /*let pads = this.input.gamepads.getAll();
@@ -121,7 +121,7 @@ let testingState = new Phaser.Class({
                         text: "",
                         style: {
                             fontSize: "16px",
-                            fontFamily: "Arial",
+                            fontFamily: myGame.primaryFont,
                             color: "#AA1100",
                             align: "center"
                         }
@@ -145,12 +145,18 @@ let testingState = new Phaser.Class({
         };
     },
 
+    setupDebugContent: function() {
+        new Pickup(this, {x: pConfig[0].start.x + 100, y: pConfig[0].start.y}, undefined, true);
+    },
+
     create: function() {
         //this.sys.install('AnimatedTiles');
 
         this.setupMusic();
         this.setupScene();
         this.setupUI();
+
+        this.setupDebugContent();
     },
 
     move: function(player, time, delta) {

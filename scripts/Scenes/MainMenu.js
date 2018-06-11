@@ -26,7 +26,7 @@ let mainMenuState = new Phaser.Class({
             char.setInteractive();
             char.spriteKey = key;
             char.once("pointerdown", function() {
-                playerSpriteKey = this.spriteKey;
+                pConfig[0] = this.spriteKey;
                 game.scene.start("GamePlay");
             });
 

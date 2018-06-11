@@ -22,7 +22,8 @@ let Player = new Phaser.Class( {
         // add animations
         this.scene.anims.create({
             key: this.name + "walk",
-            frames: this.scene.anims.generateFrameNames(config.spriteKey, {start:1, end:4}),
+            frames: this.scene.anims.generateFrameNames(config.spriteKey, {start:2, end:4})
+                .concat({key:config.spriteKey, frame: "3"}),
             frameRate: myGame.frameRate,
             repeat: -1
         }, this);
